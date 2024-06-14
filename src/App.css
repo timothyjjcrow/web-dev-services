@@ -1,38 +1,137 @@
-.App {
+/* src/App.css */
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+
+body {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #000000;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0 50px;
+}
+
+.logo {
+  font-size: 24px;
+  color: rgb(255, 255, 255);
+  font-weight: 700;
+}
+
+.hero-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: url("https://source.unsplash.com/random/1920x1080") no-repeat
+    center center/cover;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  padding: 0 20px;
+  animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.hero-title {
+  font-size: 64px;
+  margin-bottom: 24px;
+}
+
+.hero-description {
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+.hero-button {
+  font-size: 18px;
+  padding: 10px 20px;
+}
+
+.services-section {
+  min-height: 100vh;
+  background: #fff;
+  padding: 100px 50px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.services-section h1 {
+  font-size: 36px;
+  margin-bottom: 40px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.service-card {
+  transition: transform 0.3s ease, width 0.3s ease;
+  cursor: pointer;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.service-card.expanded {
+  transform: scale(1.05);
+  width: 100%;
+  z-index: 10;
+}
+
+.service-details {
+  margin-top: 10px;
+}
+
+.service-logos {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  margin-top: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.service-logo {
+  width: 40px;
+  height: 40px;
+  margin: 0 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.service-logo img {
+  max-width: 100%;
+  max-height: 40px;
+  display: block;
+}
+
+.contact-section {
+  background: #fff;
+  padding: 50px;
+  text-align: center;
+}
+
+.contact-section h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+}
+
+.site-layout-content {
+  background: #fff;
+  min-height: 280px;
+  margin-top: 64px;
+}
+
+.ant-card {
+  margin-bottom: 24px;
+  transition: all 0.3s;
+}
+
+.ant-card:hover {
+  transform: scale(1.05);
 }
