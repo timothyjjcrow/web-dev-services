@@ -1,0 +1,36 @@
+.contact-section {
+  background-color: var(--background-light);
+  padding: 100px 50px;
+}
+
+.contact-info-card,
+.contact-form-card {
+  height: 100%;
+  box-shadow: var(--box-shadow);
+  border-radius: 8px;
+  padding: 30px;
+}
+
+.contact-info-list {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.contact-icon {
+  color: var(--primary-color);
+  font-size: 24px;
+}
+
+.social-links {
+  margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+  .contact-section {
+    padding: 60px 20px;
+  }
+
+  .contact-info-card {
+    margin-bottom: 30px;
+  }
+}
