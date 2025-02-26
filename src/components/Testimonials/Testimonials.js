@@ -1,7 +1,7 @@
 // src/components/Testimonials/Testimonials.js
 import React from "react";
 import { Row, Col } from "antd";
-import SectionHeader from "../common/SectionHeader";
+import SectionHeader from "../Common/SectionHeader";
 import TestimonialCard from "./TestimonialCard";
 import { testimonials } from "../../data/testimonialData";
 import "./Testimonials.css";

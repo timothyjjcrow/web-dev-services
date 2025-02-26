@@ -1,4 +1,9 @@
 // src/data/navLinks.js
+import {
+  GithubOutlined,
+  LinkedinOutlined,
+  TwitterOutlined,
+} from "@ant-design/icons";
 export const navLinks = [
   { key: "1", to: "home", name: "Home" },
   { key: "2", to: "services", name: "Services" },

@@ -1,46 +1,269 @@
+/* src/components/Statistics/Statistics.css */
 .statistics-section {
-  background-color: var(--background-light);
-  padding: 60px 0;
+  position: relative;
+  background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+  padding: 80px 0;
   margin-top: -80px;
   z-index: 2;
+  overflow: hidden;
+  color: white;
+}
+
+.statistics-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.statistics-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.statistics-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.3);
+  animation: float-particle linear infinite;
+}
+
+@keyframes float-particle {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(20px) scale(0);
+    opacity: 0;
+  }
+}
+
+.statistics-container {
   position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.row-gutter {
+  margin-bottom: 0 !important;
+}
+
+/* StatCard Styling */
+.stat-card-wrapper {
+  height: 100%;
+  perspective: 1000px;
 }
 
 .statistic-card {
+  position: relative;
   text-align: center;
-  box-shadow: var(--box-shadow);
-  border-radius: 8px;
-  padding: 30px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 40px 20px;
   height: 100%;
-  transition: var(--transition-medium);
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.statistic-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+.statistic-card:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  z-index: -1;
 }
 
-.animated-value {
-  animation: pulse 5s infinite ease-in-out;
-  color: var(--primary-color);
-  margin-bottom: 10px;
+.stat-icon-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
 }
 
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.03);
-  }
-  100% {
-    transform: scale(1);
-  }
+.stat-icon {
+  width: 70px;
+  height: 70px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+}
+
+.project-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M3 3h18v18H3V3zm16 16V5H5v14h14zM11 7h6v2h-6V7zm0 4h6v2h-6v-2zm0 4h6v2h-6v-2zM7 7h2v2H7V7zm0 4h2v2H7v-2zm0 4h2v2H7v-2z'/%3E%3C/svg%3E");
+}
+
+.client-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z'/%3E%3C/svg%3E");
+}
+
+.experience-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M22 5.18L10.59 16.6l-4.24-4.24 1.41-1.41 2.83 2.83 10-10L22 5.18zm-2.21 5.04c.13.57.21 1.17.21 1.78 0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8c1.58 0 3.04.46 4.28 1.25l1.44-1.44A9.9 9.9 0 0 0 12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10c0-1.19-.22-2.33-.6-3.39l-1.61 1.61z'/%3E%3C/svg%3E");
+}
+
+.satisfaction-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z'/%3E%3C/svg%3E");
+}
+
+.stat-value {
+  font-size: 3.5rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 12px !important;
+  background: linear-gradient(to right, #ffffff, #f0f0f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
+  position: relative;
+  display: inline-block;
+}
+
+.stat-value:after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.2)
+  );
+  border-radius: 2px;
+}
+
+.stat-label {
+  font-size: 1.125rem !important;
+  font-weight: 500 !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat-highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  z-index: 5;
 }
 
 @media (max-width: 768px) {
   .statistics-section {
-    padding: 40px 20px;
+    padding: 60px 15px;
     margin-top: -40px;
+  }
+
+  .statistic-card {
+    padding: 30px 15px;
+  }
+
+  .stat-value {
+    font-size: 2.5rem !important;
+  }
+
+  .stat-label {
+    font-size: 0.9rem !important;
+  }
+
+  .stat-icon {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .stat-value {
+    font-size: 3rem !important;
+  }
+}
+/* Add these styles to your Statistics.css file */
+
+.stat-value-container {
+  min-height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stat-value {
+  position: relative;
+  text-align: center;
+  background: linear-gradient(to right, #ffffff, #f0f0f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
+  margin-bottom: 12px !important;
+  font-weight: 700 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-size: 3.5rem !important;
+
+  /* Fix for blurriness */
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.stat-number {
+  display: inline-block;
+  min-width: 2ch; /* For single-digit numbers */
+  text-align: right;
+  font-variant-numeric: tabular-nums; /* Keep consistent digit width */
+}
+
+.stat-suffix {
+  display: inline-block;
+}
+
+/* For smaller screens */
+@media (max-width: 768px) {
+  .stat-value {
+    font-size: 2.5rem !important;
+  }
+
+  .stat-value-container {
+    min-height: 60px;
   }
 }

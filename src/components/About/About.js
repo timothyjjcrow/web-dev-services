@@ -3,7 +3,7 @@ import React from "react";
 import { Row, Col, Typography, List } from "antd";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import { motion } from "framer-motion";
-import SectionHeader from "./common/SectionHeader";
+import SectionHeader from "../Common/SectionHeader";
 import Team from "./Team/Team";
 import "./About.css";
 

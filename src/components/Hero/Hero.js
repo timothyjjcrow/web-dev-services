@@ -3,7 +3,7 @@ import React from "react";
 import { Typography, Button, Badge } from "antd";
 import { Link } from "react-scroll";
 import { motion } from "framer-motion";
-import AnimatedBackground from "./common/AnimatedBackground";
+import AnimatedBackground from "../Common/AnimatedBackground";
 import "./Hero.css";
 
 const { Title, Paragraph } = Typography;

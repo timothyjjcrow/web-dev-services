@@ -79,7 +79,7 @@
 }
 
 .copyright {
-  color: rgba(255, 255, 255, 0.5) !important;
+  color: rgba(0, 0, 0, 0.5) !important;
 }
 
 .footer-legal {
@@ -88,12 +88,12 @@
 }
 
 .footer-legal a {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(0, 0, 0, 0.5);
   transition: var(--transition-fast);
 }
 
 .footer-legal a:hover {
-  color: #ffffff;
+  color: #000000;
 }
 
 @media (max-width: 768px) {

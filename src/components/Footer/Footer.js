@@ -8,7 +8,7 @@ import {
   PhoneOutlined,
   ApartmentOutlined,
 } from "@ant-design/icons";
-import SocialIcons from "./common/SocialIcons";
+import SocialIcons from "../Common/SocialIcons";
 import { socialLinks, navLinks } from "../../data/navLinks";
 import "./Footer.css";
 

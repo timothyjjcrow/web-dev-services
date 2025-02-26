@@ -2,7 +2,7 @@
 import React from "react";
 import { Card, Typography, List } from "antd";
 import { motion } from "framer-motion";
-import SocialIcons from "./common/SocialIcons";
+import SocialIcons from "../Common/SocialIcons";
 import { contactInfo, socialLinks } from "../../data/contactData";
 
 const { Title } = Typography;

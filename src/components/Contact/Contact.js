@@ -1,7 +1,7 @@
 // src/components/Contact/Contact.js
 import React from "react";
 import { Row, Col } from "antd";
-import SectionHeader from "../common/SectionHeader";
+import SectionHeader from "../Common/SectionHeader";
 import ContactForm from "./ContactForm";
 import ContactInfo from "./ContactInfo";
 import "./Contact.css";
