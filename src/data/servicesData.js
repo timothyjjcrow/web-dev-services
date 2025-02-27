@@ -5,7 +5,11 @@ import angularLogo from "../angular-3-logo-svg-vector.svg";
 // Using placeholder images for these
 import wordpressLogo from "../shopifyLogo.jpg";
 import nodeLogo from "../reactLogo.png";
-
+import {
+  GithubOutlined,
+  LinkedinOutlined,
+  TwitterOutlined,
+} from "@ant-design/icons";
 export const services = [
   {
     title: "Custom Web Development",

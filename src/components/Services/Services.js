@@ -1,5 +1,5 @@
 // src/components/Services/Services.js
-import React, { useState } from "react";
+import React from "react";
 import { Row, Col, Typography } from "antd";
 import { motion } from "framer-motion";
 import ServiceCard from "./ServiceCard";
@@ -9,12 +9,6 @@ import "./Services.css";
 const { Title, Paragraph } = Typography;
 
 const Services = () => {
-  const [expandedService, setExpandedService] = useState(null);
-
-  const handleToggleExpand = (index) => {
-    setExpandedService(expandedService === index ? null : index);
-  };
-
   // Animation variants
   const sectionVariants = {
     hidden: { opacity: 0 },
@@ -74,12 +68,7 @@ const Services = () => {
               key={index}
               className="service-card-col"
             >
-              <ServiceCard
-                service={service}
-                isExpanded={expandedService === index}
-                index={index}
-                onToggleExpand={() => handleToggleExpand(index)}
-              />
+              <ServiceCard service={service} index={index} />
             </Col>
           ))}
         </Row>
