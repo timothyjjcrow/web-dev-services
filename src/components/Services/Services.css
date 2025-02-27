@@ -314,7 +314,7 @@
 .service-wave-container {
   position: relative;
   width: 100%;
-  height: 120px;
+  height: 0;
   overflow: hidden;
   margin-top: -1px;
 }
