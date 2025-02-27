@@ -9,6 +9,7 @@ const StatCard = ({ stat, index }) => {
   const [counted, setCounted] = useState(0);
   const [isInView, setIsInView] = useState(false);
   const cardRef = useRef(null);
+  const isMobile = window.innerWidth <= 768;
 
   // Parse the stat value to get only the number part
   const targetValue = parseInt(stat.value.replace(/[^0-9]/g, ""));
@@ -16,12 +17,12 @@ const StatCard = ({ stat, index }) => {
   // Get the suffix (like + or %)
   const suffix = stat.value.replace(/[0-9]/g, "");
 
-  // Animation variants
+  // Simplified animation variants for mobile
   const cardVariants = {
     hidden: {
-      y: 50,
+      y: 30,
       opacity: 0,
-      scale: 0.8,
+      scale: isMobile ? 0.95 : 0.8, // Less scale on mobile
     },
     visible: {
       y: 0,
@@ -29,18 +30,18 @@ const StatCard = ({ stat, index }) => {
       scale: 1,
       transition: {
         type: "spring",
-        stiffness: 100,
-        damping: 12,
-        delay: index * 0.1,
+        stiffness: isMobile ? 70 : 100, // Gentler animation on mobile
+        damping: isMobile ? 15 : 12,
+        delay: isMobile ? index * 0.08 : index * 0.1, // Faster delays on mobile
       },
     },
     hover: {
-      y: -15,
-      scale: 1.05,
+      y: isMobile ? -5 : -15, // Smaller hover effect on mobile
+      scale: isMobile ? 1.02 : 1.05,
       boxShadow: "0 20px 30px rgba(0, 0, 0, 0.2)",
       transition: {
         type: "spring",
-        stiffness: 300,
+        stiffness: isMobile ? 200 : 300,
         damping: 20,
       },
     },
@@ -53,8 +54,8 @@ const StatCard = ({ stat, index }) => {
       opacity: 1,
       transition: {
         type: "spring",
-        stiffness: 300,
-        delay: index * 0.2 + 0.3,
+        stiffness: isMobile ? 200 : 300,
+        delay: isMobile ? index * 0.15 : index * 0.2 + 0.3,
       },
     },
   };
@@ -69,7 +70,7 @@ const StatCard = ({ stat, index }) => {
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 } // Lower threshold for earlier triggering on mobile
     );
 
     if (cardRef.current) {
@@ -86,7 +87,7 @@ const StatCard = ({ stat, index }) => {
     if (!isInView) return;
 
     let startTimestamp;
-    const duration = 2000; // 2 seconds
+    const duration = isMobile ? 1500 : 2000; // Shorter animation on mobile
     let animationFrameId;
 
     const step = (timestamp) => {
@@ -137,7 +138,8 @@ const StatCard = ({ stat, index }) => {
       variants={cardVariants}
       initial="hidden"
       animate="visible"
-      whileHover="hover"
+      whileHover={isMobile ? {} : "hover"} // Disable hover animation on mobile
+      whileTap={isMobile ? { scale: 0.98 } : {}} // Add tap feedback on mobile
       className="stat-card-wrapper"
     >
       <Card className="statistic-card">
@@ -147,7 +149,6 @@ const StatCard = ({ stat, index }) => {
 
         <div className="stat-value-container">
           <Title level={2} className="stat-value">
-            {/* Fix for blurry text by using a fixed-width approach */}
             <span className="stat-number">{counted}</span>
             <span className="stat-suffix">{suffix}</span>
           </Title>

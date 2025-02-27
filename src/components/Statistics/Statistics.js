@@ -1,5 +1,5 @@
 // src/components/Statistics/Statistics.js
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect } from "react";
 import { Row, Col } from "antd";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -11,7 +11,7 @@ const Statistics = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({
     triggerOnce: false,
-    threshold: 0.2,
+    threshold: 0.1, // Lower threshold for mobile
   });
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const Statistics = () => {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15, // Slightly faster staggering for mobile
       },
     },
   };
@@ -34,7 +34,8 @@ const Statistics = () => {
       <div className="statistics-background">
         <div className="statistics-overlay"></div>
         <div className="statistics-particles">
-          {[...Array(20)].map((_, index) => (
+          {/* Reduced number of particles for better mobile performance */}
+          {[...Array(10)].map((_, index) => (
             <div
               key={index}
               className="particle"
@@ -55,9 +56,16 @@ const Statistics = () => {
         animate={controls}
         className="statistics-container"
       >
-        <Row gutter={[24, 24]} justify="center" className="row-gutter">
+        <Row
+          gutter={[
+            { xs: 12, sm: 16, md: 24 },
+            { xs: 12, sm: 16, md: 24 },
+          ]}
+          justify="center"
+          className="row-gutter"
+        >
           {statistics.map((stat, index) => (
-            <Col xs={12} sm={6} key={index}>
+            <Col xs={24} sm={12} md={6} key={index} className="stat-card-col">
               <StatCard stat={stat} index={index} />
             </Col>
           ))}
