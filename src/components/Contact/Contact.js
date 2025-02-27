@@ -357,18 +357,6 @@ const Contact = () => {
                       ))}
                     </div>
                   </div>
-
-                  <div className="location-preview">
-                    <div className="map-container">
-                      <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.991610694953!2d-122.08401708412124!3d37.42203597982346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDI1JzEyLjAiTiAxMjLCsDA0JzU4LjAiVw!5e0!3m2!1sen!2sus!4v1613498173509!5m2!1sen!2sus"
-                        title="Our Location"
-                        allowFullScreen=""
-                        loading="lazy"
-                      ></iframe>
-                      <div className="map-overlay"></div>
-                    </div>
-                  </div>
                 </Card>
               </motion.div>
             </Col>
