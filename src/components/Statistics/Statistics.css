@@ -1,12 +1,12 @@
 /* src/components/Statistics/Statistics.css */
 .statistics-section {
   position: relative;
-  background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+  background: linear-gradient(135deg, #000000 0%, #000000 100%);
   padding: 80px 0;
   margin-top: -80px;
   z-index: 2;
   overflow: hidden;
-  color: white;
+  color: rgb(0, 255, 255);
 }
 
 .statistics-background {
@@ -123,7 +123,7 @@
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+  filter: drop-shadow(0 0 8px rgba(0, 255, 234, 0.6));
 }
 
 .project-icon {
@@ -146,7 +146,7 @@
   font-size: 3.5rem !important;
   font-weight: 700 !important;
   margin-bottom: 12px !important;
-  background: linear-gradient(to right, #ffffff, #f0f0f0);
+  background: linear-gradient(to right, #00ffff, #00eeff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
@@ -164,7 +164,7 @@
   height: 3px;
   background: linear-gradient(
     to right,
-    rgba(255, 255, 255, 0.8),
+    rgba(0, 225, 255, 0.8),
     rgba(255, 255, 255, 0.2)
   );
   border-radius: 2px;
@@ -229,7 +229,7 @@
 .stat-value {
   position: relative;
   text-align: center;
-  background: linear-gradient(to right, #ffffff, #f0f0f0);
+  background: linear-gradient(to right, #00ffff, #f0f0f0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
