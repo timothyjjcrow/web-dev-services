@@ -16,7 +16,8 @@
   height: 150px;
   background: linear-gradient(
     to bottom,
-    rgba(26, 41, 128, 0.9) 0%,
+    rgba(1, 217, 255, 0.95) 0%,
+    rgba(254, 255, 255, 0.3) 40%,
     rgba(255, 255, 255, 0) 100%
   );
   z-index: 1;
@@ -44,6 +45,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
+  text-shadow: 0 2px 15px rgba(38, 208, 206, 0.2);
 }
 
 .services-description {
@@ -65,13 +67,13 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #26d0ce 100%);
 }
 
 .services-divider-line {
   flex-grow: 1;
   height: 2px;
-  background: linear-gradient(to right, #1a2980, #26d0ce);
+  background: linear-gradient(to right, #ffffff, #26d0ce);
   margin: 0 10px;
 }
 
@@ -105,10 +107,22 @@
   position: relative;
   will-change: transform, height, box-shadow;
   transform-origin: center top;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(245, 245, 245, 0.5) 100%
+  );
+  backdrop-filter: blur(5px);
 }
 
 .service-card.hovered {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 40px rgba(38, 208, 206, 0.15),
+    0 10px 20px rgba(26, 41, 128, 0.1);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(240, 250, 250, 0.8) 100%
+  );
   z-index: 10;
 }
 
@@ -153,6 +167,11 @@
   border-radius: 50%;
   background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.service-card.hovered .service-badge {
+  box-shadow: 0 4px 12px rgba(38, 208, 206, 0.5);
 }
 
 .service-badge:after {
@@ -176,6 +195,22 @@
   position: relative;
   padding-bottom: 10px;
   font-weight: 600;
+  background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Card divider */
+.service-card-divider {
+  position: relative;
+  height: 20px;
+  margin: 8px -24px;
+  overflow: hidden;
+}
+
+.service-card-divider svg {
+  width: 100%;
+  height: 100%;
 }
 
 .service-title:after {
@@ -187,11 +222,12 @@
   height: 3px;
   background: linear-gradient(to right, #1a2980, #26d0ce);
   border-radius: 3px;
-  transition: width 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.service-card:hover .service-title:after {
+.service-card.hovered .service-title:after {
   width: 80px;
+  box-shadow: 0 2px 5px rgba(38, 208, 206, 0.3);
 }
 
 .service-description {
@@ -212,11 +248,21 @@
   background: linear-gradient(
     135deg,
     rgba(26, 41, 128, 0.1) 0%,
-    rgba(38, 208, 206, 0.1) 100%
+    rgba(38, 208, 206, 0.15) 100%
   );
   border: 1px solid rgba(26, 41, 128, 0.2);
   color: #1a2980;
   font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.service-card.hovered .service-tech-tag {
+  background: linear-gradient(
+    135deg,
+    rgba(26, 41, 128, 0.15) 0%,
+    rgba(38, 208, 206, 0.25) 100%
+  );
+  border-color: rgba(38, 208, 206, 0.4);
 }
 
 /* Hover content */
@@ -236,7 +282,10 @@
 .features-title {
   display: block;
   margin-bottom: 10px;
-  color: #1a2980;
+  background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
 }
 
 .service-feature-item {
@@ -247,7 +296,9 @@
 }
 
 .service-feature-icon {
-  color: #26d0ce;
+  background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-right: 10px;
   font-size: 14px;
   margin-top: 4px;
@@ -304,6 +355,18 @@
   .service-image-container {
     height: 180px;
   }
+}
+
+/* Service particles for visual consistency with statistics section */
+.service-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.3);
+  animation: float-particle linear infinite;
+  opacity: 0.7;
 }
 
 @media (max-width: 576px) {

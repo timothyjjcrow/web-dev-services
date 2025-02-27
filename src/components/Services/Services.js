@@ -35,7 +35,21 @@ const Services = () => {
 
   return (
     <section className="services-section" id="services">
-      <div className="services-transition-top"></div>
+      <div className="services-transition-top">
+        {/* Add subtle particles similar to statistics section */}
+        {[...Array(10)].map((_, index) => (
+          <div
+            key={index}
+            className="service-particle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 2}s`,
+              animationDuration: `${5 + Math.random() * 5}s`,
+            }}
+          ></div>
+        ))}
+      </div>
 
       <motion.div
         className="services-container"
