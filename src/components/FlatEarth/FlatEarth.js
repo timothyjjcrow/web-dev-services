@@ -231,10 +231,8 @@ const FlatEarth = () => {
                   <div className="disclaimer">
                     <InfoCircleOutlined className="disclaimer-icon" />
                     <span className="disclaimer-text">
-                      We promise we're joking! Our dev team actually believes in
-                      spherical Earth AND spherical web design. This
-                      tongue-in-cheek section showcases our ability to have fun
-                      while delivering outstanding websites.
+                      Our flat earth model is so flat you could use it as a
+                      table...
                     </span>
                   </div>
                   <Button className="cta-button" type="primary">
