@@ -1,102 +1,75 @@
 // src/components/About/About.js
 import React from "react";
-import { Row, Col, Typography, List, Card, Statistic } from "antd";
+import { Row, Col, Typography, Card, Statistic, Divider, Button } from "antd";
 import {
-  CheckCircleOutlined,
-  TrophyOutlined,
   RocketOutlined,
-  ToolOutlined,
   TeamOutlined,
+  ToolOutlined,
   HeartOutlined,
-  FacebookOutlined,
-  TwitterOutlined,
-  LinkedinOutlined,
+  ArrowRightOutlined,
   GithubOutlined,
+  LinkedinOutlined,
+  TwitterOutlined,
 } from "@ant-design/icons";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import SectionHeader from "../Common/SectionHeader";
 import "./About.css";
 
 const { Title, Paragraph, Text } = Typography;
 
-// Features with icons
-const aboutFeatures = [
+// Company values with icons
+const companyValues = [
   {
-    icon: <RocketOutlined className="feature-icon" />,
+    icon: <RocketOutlined className="value-icon" />,
     title: "Innovation",
     description:
-      "We stay at the forefront of web development technologies to deliver cutting-edge solutions.",
+      "We embrace cutting-edge technologies to deliver solutions that keep you ahead of the curve.",
   },
   {
-    icon: <TeamOutlined className="feature-icon" />,
+    icon: <TeamOutlined className="value-icon" />,
     title: "Collaboration",
     description:
-      "We work closely with you throughout the project to ensure your vision is realized.",
+      "Your vision combined with our expertise creates the perfect partnership for success.",
   },
   {
-    icon: <ToolOutlined className="feature-icon" />,
+    icon: <ToolOutlined className="value-icon" />,
     title: "Expertise",
     description:
-      "Our team brings years of experience in diverse web technologies and industry domains.",
+      "Our team brings deep knowledge across multiple technologies and industry domains.",
   },
   {
-    icon: <HeartOutlined className="feature-icon" />,
+    icon: <HeartOutlined className="value-icon" />,
     title: "Commitment",
     description:
-      "We're dedicated to your success and provide ongoing support beyond project completion.",
+      "We're dedicated to your long-term success, providing support well beyond launch day.",
   },
 ];
 
 // Company milestones
 const companyTimeline = [
   {
-    date: "2017",
-    event: "Company Founded",
+    year: "2017",
+    title: "Our Beginning",
     description:
-      "Started with a small team of passionate developers focused on creating custom web solutions.",
+      "Started with a small team of passionate developers creating custom web solutions.",
   },
   {
-    date: "2019",
-    event: "Expanded Services",
+    year: "2019",
+    title: "Expanding Horizons",
     description:
-      "Added e-commerce development and UI/UX design to our service offerings.",
+      "Added e-commerce development and UI/UX design to our growing service portfolio.",
   },
   {
-    date: "2021",
-    event: "Team Growth",
+    year: "2021",
+    title: "Team Growth",
     description:
-      "Doubled our team size and opened a second office to serve more clients.",
+      "Doubled our team size and opened a second office to serve more clients globally.",
   },
   {
-    date: "2023",
-    event: "Industry Recognition",
+    year: "2023",
+    title: "Industry Recognition",
     description:
-      "Received multiple awards for outstanding web development projects.",
-  },
-];
-
-// Additional quick stats
-const aboutStats = [
-  {
-    icon: <TrophyOutlined />,
-    value: "15+",
-    label: "Awards Won",
-  },
-  {
-    icon: <TeamOutlined />,
-    value: "24",
-    label: "Team Members",
-  },
-  {
-    icon: <RocketOutlined />,
-    value: "30+",
-    label: "Technologies",
-  },
-  {
-    icon: <HeartOutlined />,
-    value: "100%",
-    label: "Passion",
+      "Received multiple awards for outstanding web development projects and client satisfaction.",
   },
 ];
 
@@ -120,7 +93,6 @@ const teamMembers = [
     bio: "Passionate about creating intuitive user experiences that balance aesthetics and functionality.",
     social: [
       { icon: <LinkedinOutlined />, link: "#" },
-      { icon: <FacebookOutlined />, link: "#" },
       { icon: <TwitterOutlined />, link: "#" },
     ],
   },
@@ -128,242 +100,316 @@ const teamMembers = [
     name: "Sam Patel",
     role: "E-commerce Specialist",
     avatar: "https://randomuser.me/api/portraits/men/62.jpg",
-    bio: "Specialized in Shopify development with focus on conversion optimization.",
+    bio: "Specialized in Shopify development with focus on conversion optimization and growth strategies.",
     social: [
       { icon: <GithubOutlined />, link: "#" },
       { icon: <LinkedinOutlined />, link: "#" },
-      { icon: <TwitterOutlined />, link: "#" },
     ],
   },
 ];
 
+// Key company statistics
+const companyStats = [
+  { value: "500+", label: "Projects Delivered" },
+  { value: "150+", label: "Happy Clients" },
+  { value: "8+", label: "Years Experience" },
+  { value: "24", label: "Team Members" },
+];
+
 const About = () => {
-  // Animation variants for staggered animations - faster and more seamless
-  const containerVariants = {
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 60 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
+  const staggerContainer = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.05, // Faster stagger
-        delayChildren: 0.1, // Reduced delay
+        staggerChildren: 0.1,
+        delayChildren: 0.1,
       },
     },
   };
 
-  const itemVariants = {
-    hidden: { y: 10, opacity: 0 }, // Less vertical movement
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.4, ease: "easeOut" }, // Faster animation
-    },
-  };
-
-  // Use intersection observer for animations with earlier triggering
-  const [contentRef, contentInView] = useInView({
-    triggerOnce: false,
-    threshold: 0.05,
-    rootMargin: "0px 0px -10% 0px", // Trigger earlier - when element is 10% from entering viewport
+  // Use intersection observer hooks for animations
+  const [heroRef, heroInView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+    rootMargin: "-10px 0px",
   });
 
-  const [statsRef, statsInView] = useInView({
+  const [valuesRef, valuesInView] = useInView({
     triggerOnce: false,
-    threshold: 0.05,
-    rootMargin: "0px 0px -15% 0px", // Trigger even earlier
+    threshold: 0.1,
+    rootMargin: "-100px 0px",
   });
 
   const [timelineRef, timelineInView] = useInView({
     triggerOnce: false,
-    threshold: 0.05,
-    rootMargin: "0px 0px -15% 0px",
+    threshold: 0.1,
+    rootMargin: "-100px 0px",
   });
 
   const [teamRef, teamInView] = useInView({
     triggerOnce: false,
-    threshold: 0.05,
-    rootMargin: "0px 0px -15% 0px",
+    threshold: 0.1,
+    rootMargin: "-100px 0px",
+  });
+
+  const [statsRef, statsInView] = useInView({
+    triggerOnce: false,
+    threshold: 0.1,
+    rootMargin: "-100px 0px",
   });
 
   return (
     <section className="about-section" id="about">
-      {/* Background shapes */}
-      <div className="about-bg-shape shape-1"></div>
-      <div className="about-bg-shape shape-2"></div>
-
-      {/* Section header */}
-      <div className="about-header">
-        <Title level={2} className="about-title">
-          About Us
-        </Title>
-        <Paragraph className="about-description">
-          We're a team of passionate developers, designers, and digital
-          strategists dedicated to creating exceptional web experiences that
-          drive real results for your business.
-        </Paragraph>
-        <div className="about-divider">
-          <span className="about-divider-dot"></span>
-          <span className="about-divider-line"></span>
-          <span className="about-divider-dot"></span>
-        </div>
+      {/* Hero Section */}
+      <div className="about-hero">
+        <div className="about-overlay"></div>
+        <motion.div
+          className="about-hero-content container"
+          ref={heroRef}
+          initial="hidden"
+          animate={heroInView ? "visible" : "hidden"}
+          variants={fadeInUp}
+        >
+          <Title className="about-hero-title">
+            We Build <span className="text-gradient">Digital Experiences</span>
+            <br />
+            That Transform Businesses
+          </Title>
+          <Paragraph className="about-hero-description">
+            We're a team of passionate developers, designers, and strategists
+            dedicated to crafting exceptional web solutions that drive real
+            results for businesses worldwide.
+          </Paragraph>
+        </motion.div>
       </div>
 
-      {/* Main content */}
-      <motion.div
-        ref={contentRef}
-        variants={containerVariants}
-        initial="hidden"
-        animate={contentInView ? "visible" : "hidden"}
-      >
-        <Row gutter={[40, 40]} className="about-content-wrapper">
-          <Col xs={24} md={12}>
+      {/* Our Story Section */}
+      <div className="about-story container">
+        <Row gutter={[60, 40]} align="middle">
+          <Col xs={24} lg={12}>
             <motion.div
-              className="about-image-container"
-              variants={itemVariants}
+              className="about-story-image-wrapper"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{
+                opacity: heroInView ? 1 : 1,
+                scale: heroInView ? 1 : 1,
+              }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <img
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
                 alt="Our team collaborating"
-                className="about-image"
+                className="about-story-image"
               />
+              <div className="image-accent"></div>
             </motion.div>
           </Col>
-          <Col xs={24} md={12}>
-            <motion.div className="about-content" variants={itemVariants}>
-              <Title level={3} className="about-content-title">
-                Our Approach
+          <Col xs={24} lg={12}>
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{
+                opacity: heroInView ? 1 : 1,
+                x: heroInView ? 0 : 0,
+              }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="about-story-content"
+            >
+              <Title level={2} className="section-title">
+                Our Story
               </Title>
-              <Paragraph className="about-text">
+              <div className="section-title-underline"></div>
+              <Paragraph className="about-story-text">
+                Founded in 2017, Web Dev Services began with a simple mission:
+                to help businesses succeed in the digital world through
+                exceptional web experiences. What started as a small team of
+                passionate developers has grown into a full-service digital
+                agency known for innovation and technical excellence.
+              </Paragraph>
+              <Paragraph className="about-story-text">
                 We believe that a great website is more than just beautiful
                 design – it's about creating intuitive user experiences,
                 optimizing for performance, and delivering measurable results
                 for your business.
               </Paragraph>
-              <Paragraph className="about-text">
-                Our collaborative process ensures we understand your goals and
-                deliver solutions that exceed expectations. From initial concept
-                to launch and beyond, we're committed to your success in the
-                digital landscape.
-              </Paragraph>
-
-              <div className="about-features">
-                {aboutFeatures.map((feature, index) => (
-                  <motion.div
-                    key={index}
-                    className="feature-item"
-                    variants={itemVariants}
-                    whileHover={{ x: 10, transition: { duration: 0.2 } }}
-                  >
-                    <div className="feature-icon-container">{feature.icon}</div>
-                    <div className="feature-content">
-                      <Text strong className="feature-title">
-                        {feature.title}
-                      </Text>
-                      <Paragraph className="feature-description">
-                        {feature.description}
-                      </Paragraph>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+              <Button type="primary" className="about-cta-button">
+                Learn more about our process <ArrowRightOutlined />
+              </Button>
             </motion.div>
           </Col>
         </Row>
+      </div>
 
-        {/* Quick stats section */}
+      {/* Values Section */}
+      <div className="about-values container">
         <motion.div
-          ref={statsRef}
-          variants={containerVariants}
+          ref={valuesRef}
           initial="hidden"
-          animate={statsInView ? "visible" : "hidden"}
-          className="about-stats-container"
+          animate={valuesInView ? "visible" : "hidden"}
+          className="section-header text-center"
+          variants={fadeInUp}
         >
-          <Row gutter={[24, 24]}>
-            {aboutStats.map((stat, index) => (
-              <Col xs={12} sm={6} key={index}>
+          <Title level={2} className="section-title">
+            Our Core Values
+          </Title>
+          <div className="section-title-underline center"></div>
+          <Paragraph className="section-subtitle">
+            These principles guide everything we do and define how we work with
+            our clients
+          </Paragraph>
+        </motion.div>
+
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate={valuesInView ? "visible" : "hidden"}
+        >
+          <Row gutter={[32, 32]} className="values-row">
+            {companyValues.map((value, index) => (
+              <Col xs={24} sm={12} lg={6} key={index}>
                 <motion.div
-                  variants={itemVariants}
+                  variants={fadeInUp}
                   whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                  className="value-card"
                 >
-                  <Card className="about-stat-item">
-                    <div className="about-stat-icon">{stat.icon}</div>
-                    <Title level={2} className="about-stat-value">
-                      {stat.value}
-                    </Title>
-                    <Text className="about-stat-label">{stat.label}</Text>
-                  </Card>
+                  <div className="value-icon-wrapper">{value.icon}</div>
+                  <Title level={4} className="value-title">
+                    {value.title}
+                  </Title>
+                  <Paragraph className="value-description">
+                    {value.description}
+                  </Paragraph>
                 </motion.div>
               </Col>
             ))}
           </Row>
         </motion.div>
+      </div>
 
-        {/* Timeline section */}
+      {/* Stats Section */}
+      <div className="about-stats" ref={statsRef}>
+        <div className="container">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            animate={statsInView ? "visible" : "hidden"}
+            className="stats-container"
+          >
+            <Row gutter={[40, 40]} justify="center">
+              {companyStats.map((stat, index) => (
+                <Col xs={12} md={6} key={index}>
+                  <motion.div variants={fadeInUp} className="stat-item">
+                    <Title level={2} className="stat-value">
+                      {stat.value}
+                    </Title>
+                    <Text className="stat-label">{stat.label}</Text>
+                  </motion.div>
+                </Col>
+              ))}
+            </Row>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Timeline Section */}
+      <div className="about-timeline container" ref={timelineRef}>
         <motion.div
-          ref={timelineRef}
-          variants={containerVariants}
+          className="section-header text-center"
+          variants={fadeInUp}
           initial="hidden"
           animate={timelineInView ? "visible" : "hidden"}
-          className="about-timeline"
         >
-          <Title level={3} className="timeline-title">
+          <Title level={2} className="section-title">
             Our Journey
           </Title>
-
-          <div className="timeline-container">
-            {companyTimeline.map((item, index) => (
-              <motion.div
-                key={index}
-                className={`timeline-item ${
-                  index % 2 === 0 ? "timeline-left" : "timeline-right"
-                }`}
-                variants={itemVariants}
-              >
-                <div className="timeline-content">
-                  <span className="timeline-date">{item.date}</span>
-                  <h3 className="timeline-event">{item.event}</h3>
-                  <p className="timeline-description">{item.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <div className="section-title-underline center"></div>
+          <Paragraph className="section-subtitle">
+            The key milestones that have defined our growth over the years
+          </Paragraph>
         </motion.div>
 
-        {/* Team section */}
         <motion.div
-          ref={teamRef}
-          variants={containerVariants}
+          variants={staggerContainer}
+          initial="hidden"
+          animate={timelineInView ? "visible" : "hidden"}
+          className="timeline-wrapper"
+        >
+          {companyTimeline.map((milestone, index) => (
+            <motion.div
+              key={index}
+              variants={fadeInUp}
+              className="timeline-item"
+            >
+              <div className="timeline-marker"></div>
+              <div className="timeline-content">
+                <div className="timeline-year">{milestone.year}</div>
+                <Title level={4} className="timeline-title">
+                  {milestone.title}
+                </Title>
+                <Paragraph className="timeline-description">
+                  {milestone.description}
+                </Paragraph>
+              </div>
+            </motion.div>
+          ))}
+          <div className="timeline-line"></div>
+        </motion.div>
+      </div>
+
+      {/* Team Section */}
+      <div className="about-team container" ref={teamRef}>
+        <motion.div
+          className="section-header text-center"
+          variants={fadeInUp}
           initial="hidden"
           animate={teamInView ? "visible" : "hidden"}
-          className="team-section"
         >
-          <Title level={3} className="team-title">
+          <Title level={2} className="section-title">
             Meet Our Team
           </Title>
+          <div className="section-title-underline center"></div>
+          <Paragraph className="section-subtitle">
+            The talented people behind our successful projects
+          </Paragraph>
+        </motion.div>
 
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate={teamInView ? "visible" : "hidden"}
+        >
           <Row gutter={[32, 32]}>
             {teamMembers.map((member, index) => (
-              <Col xs={24} sm={8} key={index}>
+              <Col xs={24} md={8} key={index}>
                 <motion.div
-                  variants={itemVariants}
+                  variants={fadeInUp}
                   whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                  className="team-card"
                 >
-                  <Card className="team-card">
-                    <div className="team-member-avatar">
-                      <img
-                        src={member.avatar}
-                        alt={member.name}
-                        style={{ width: 120, height: 120, borderRadius: "50%" }}
-                      />
-                    </div>
-                    <Title level={4} className="team-member-name">
+                  <div className="team-image-container">
+                    <img
+                      src={member.avatar}
+                      alt={member.name}
+                      className="team-image"
+                    />
+                  </div>
+                  <div className="team-content">
+                    <Title level={4} className="team-name">
                       {member.name}
                     </Title>
-                    <Text className="team-member-role">{member.role}</Text>
-                    <Paragraph className="team-member-bio">
-                      {member.bio}
-                    </Paragraph>
-
-                    <div className="team-social-links">
+                    <div className="team-role">{member.role}</div>
+                    <Paragraph className="team-bio">{member.bio}</Paragraph>
+                    <div className="team-social">
                       {member.social.map((social, i) => (
                         <a
                           key={i}
@@ -376,13 +422,25 @@ const About = () => {
                         </a>
                       ))}
                     </div>
-                  </Card>
+                  </div>
                 </motion.div>
               </Col>
             ))}
           </Row>
         </motion.div>
-      </motion.div>
+
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          animate={teamInView ? "visible" : "hidden"}
+          className="join-team-cta"
+        >
+          <Title level={4}>Want to be part of our team?</Title>
+          <Button type="primary" size="large" className="about-cta-button">
+            View Career Opportunities <ArrowRightOutlined />
+          </Button>
+        </motion.div>
+      </div>
     </section>
   );
 };
