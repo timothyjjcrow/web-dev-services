@@ -1,0 +1,564 @@
+/* src/components/FlatEarth/FlatEarth.css */
+.flat-earth-section {
+  position: relative;
+  background: linear-gradient(135deg, #0a0a20 0%, #141432 100%);
+  padding: 120px 50px;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+/* Background elements */
+.flat-earth-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.flat-earth-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(
+      2px 2px at 20px 30px,
+      #eee,
+      rgba(0, 0, 0, 0)
+    ),
+    radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 90px 40px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 130px 80px, #fff, rgba(0, 0, 0, 0)),
+    radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0, 0, 0, 0));
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.5;
+  animation: stars-animation 100s linear infinite;
+}
+
+@keyframes stars-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.flat-earth-shooting-star {
+  position: absolute;
+  top: 50px;
+  left: 80px;
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.8) 100%
+  );
+  opacity: 0;
+  animation: shooting-star 10s linear infinite;
+}
+
+@keyframes shooting-star {
+  0% {
+    opacity: 0;
+    transform: translateX(0) translateY(0) rotate(45deg);
+  }
+  2% {
+    opacity: 1;
+    transform: translateX(10px) translateY(10px) rotate(45deg);
+  }
+  4% {
+    opacity: 0;
+    transform: translateX(200px) translateY(200px) rotate(45deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(200px) translateY(200px) rotate(45deg);
+  }
+}
+
+.flat-earth-glow {
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 245, 160, 0.15) 0%,
+    rgba(0, 245, 160, 0) 70%
+  );
+  animation: glow-pulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes glow-pulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1.2);
+  }
+}
+
+/* Content container */
+.flat-earth-container {
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header styling */
+.flat-earth-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.flat-earth-title {
+  font-size: 2.8rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 20px !important;
+  color: white !important;
+  position: relative;
+  display: inline-block;
+}
+
+.flat-earth-highlight {
+  background: linear-gradient(90deg, #00f5a0, #00d9f5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+.disclaimer-tooltip {
+  margin-left: 10px;
+  vertical-align: super;
+  font-size: 0.8rem;
+}
+
+.disclaimer-icon {
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.3s ease;
+}
+
+.disclaimer-icon:hover {
+  color: #00d9f5;
+}
+
+.flat-earth-description {
+  font-size: 1.2rem !important;
+  max-width: 800px;
+  margin: 0 auto 30px !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.flat-earth-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100px;
+}
+
+.flat-earth-divider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00f5a0 0%, #00d9f5 100%);
+}
+
+.flat-earth-divider-line {
+  flex-grow: 1;
+  height: 2px;
+  background: linear-gradient(to right, #00f5a0, #00d9f5);
+  margin: 0 10px;
+}
+
+/* Illustration styling */
+.flat-earth-illustration-container {
+  position: relative;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.flat-earth-disc {
+  position: relative;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  animation: float 8s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotateX(20deg) rotateY(5deg);
+  }
+  100% {
+    transform: translateY(-20px) rotateX(25deg) rotateY(15deg);
+  }
+}
+
+.flat-earth-surface {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #26d0ce 0%, #4facfe 100%);
+  overflow: hidden;
+}
+
+.continent {
+  position: absolute;
+  background: #18a558;
+  border-radius: 40%;
+}
+
+.continent-1 {
+  width: 100px;
+  height: 80px;
+  top: 30%;
+  left: 20%;
+  transform: rotate(15deg);
+  background: linear-gradient(to bottom, #00f5a0, #007f55);
+}
+
+.continent-2 {
+  width: 120px;
+  height: 70px;
+  top: 30%;
+  right: 15%;
+  transform: rotate(-25deg);
+  background: linear-gradient(to bottom, #00f5a0, #007f55);
+}
+
+.continent-3 {
+  width: 80px;
+  height: 60px;
+  bottom: 20%;
+  left: 35%;
+  background: linear-gradient(to bottom, #00f5a0, #007f55);
+}
+
+.ocean {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 1;
+}
+
+.ice-wall {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 20px solid #e8f4fc;
+  border-radius: 50%;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.turtle-container {
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 50px;
+  z-index: -1;
+}
+
+.cosmic-turtle {
+  position: absolute;
+  width: 100px;
+  height: 60px;
+  background: #35a090;
+  border-radius: 50% 50% 40% 40%;
+  transform: perspective(50px) rotateX(30deg);
+}
+
+.cosmic-turtle:before {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 20px;
+  background: #35a090;
+  border-radius: 50%;
+  top: -5px;
+  left: -10px;
+  transform: rotate(-20deg);
+}
+
+.cosmic-turtle:after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 20px;
+  background: #35a090;
+  border-radius: 50%;
+  top: -5px;
+  right: -10px;
+  transform: rotate(20deg);
+}
+
+.flat-earth-shadow {
+  position: absolute;
+  bottom: 80px;
+  width: 330px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  filter: blur(15px);
+  animation: shadow-pulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes shadow-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.3;
+  }
+}
+
+.flat-earth-labels {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.earth-label {
+  position: absolute;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.north-pole {
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ice-wall-label {
+  bottom: 40%;
+  right: 10%;
+  transform: rotate(20deg);
+}
+
+.turtle-label {
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Facts section styling */
+.flat-earth-facts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 20px 0;
+}
+
+.flat-earth-intro {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.flat-earth-intro-icon {
+  font-size: 24px;
+  color: #00d9f5;
+  margin-right: 15px;
+  margin-top: 4px;
+}
+
+.flat-earth-intro-text {
+  color: rgba(255, 255, 255, 0.9) !important;
+  margin-bottom: 0 !important;
+  font-size: 1rem !important;
+}
+
+.flat-earth-features {
+  margin-bottom: 30px;
+}
+
+.feature-card {
+  display: flex;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover,
+.feature-card.hovered {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateX(5px);
+}
+
+.feature-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  margin-right: 15px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 245, 160, 0.1);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-icon-container,
+.feature-card.hovered .feature-icon-container {
+  transform: rotate(10deg);
+}
+
+.feature-icon {
+  font-size: 24px;
+  color: #00d9f5;
+}
+
+.feature-content {
+  flex: 1;
+}
+
+.feature-title {
+  margin-bottom: 5px !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.feature-description {
+  color: rgba(255, 255, 255, 0.8) !important;
+  margin-bottom: 0 !important;
+  font-size: 0.9rem !important;
+}
+
+.flat-earth-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.flat-earth-button {
+  height: 44px !important;
+  background: linear-gradient(90deg, #00f5a0, #00d9f5) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 0 25px !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  margin-bottom: 15px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  box-shadow: 0 10px 20px rgba(0, 245, 160, 0.2) !important;
+  transition: all 0.3s ease !important;
+}
+
+.flat-earth-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 25px rgba(0, 245, 160, 0.3) !important;
+}
+
+.flat-earth-disclaimer {
+  font-size: 0.8rem !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  font-style: italic;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .flat-earth-section {
+    padding: 100px 30px;
+  }
+
+  .flat-earth-title {
+    font-size: 2.4rem !important;
+  }
+
+  .flat-earth-illustration-container {
+    height: 400px;
+    margin-bottom: 30px;
+  }
+
+  .flat-earth-disc {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .flat-earth-section {
+    padding: 80px 20px;
+  }
+
+  .flat-earth-title {
+    font-size: 2rem !important;
+  }
+
+  .flat-earth-description {
+    font-size: 1rem !important;
+  }
+
+  .flat-earth-header {
+    margin-bottom: 50px;
+  }
+
+  .flat-earth-illustration-container {
+    height: 350px;
+  }
+
+  .flat-earth-disc {
+    width: 250px;
+    height: 250px;
+  }
+
+  .earth-label {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .flat-earth-illustration-container {
+    height: 300px;
+  }
+
+  .flat-earth-disc {
+    width: 220px;
+    height: 220px;
+  }
+
+  .ice-wall {
+    border-width: 15px;
+  }
+}
