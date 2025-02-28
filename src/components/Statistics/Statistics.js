@@ -1,5 +1,5 @@
 // src/components/Statistics/Statistics.js
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col } from "antd";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -9,10 +9,21 @@ import "./Statistics.css";
 
 const Statistics = () => {
   const controls = useAnimation();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [ref, inView] = useInView({
     triggerOnce: false,
-    threshold: 0.1, // Lower threshold for mobile
+    threshold: isMobile ? 0.05 : 0.1, // Lower threshold for mobile
   });
+
+  // Handle window resize to detect mobile
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (inView) {
@@ -24,30 +35,40 @@ const Statistics = () => {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.15, // Slightly faster staggering for mobile
+        staggerChildren: isMobile ? 0.08 : 0.15, // Faster staggering for mobile
       },
     },
+  };
+
+  // Render only a subset of particles on mobile
+  const renderParticles = () => {
+    const particleCount = isMobile ? 4 : 10; // Fewer particles on mobile
+
+    return [...Array(particleCount)].map((_, index) => (
+      <div
+        key={index}
+        className="particle"
+        style={{
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          animationDelay: `${Math.random() * 5}s`,
+          animationDuration: `${(isMobile ? 5 : 8) + Math.random() * 5}s`,
+          width: isMobile
+            ? `${2 + Math.random() * 2}px`
+            : `${3 + Math.random() * 3}px`,
+          height: isMobile
+            ? `${2 + Math.random() * 2}px`
+            : `${3 + Math.random() * 3}px`,
+        }}
+      ></div>
+    ));
   };
 
   return (
     <section className="statistics-section" id="statistics">
       <div className="statistics-background">
         <div className="statistics-overlay"></div>
-        <div className="statistics-particles">
-          {/* Reduced number of particles for better mobile performance */}
-          {[...Array(10)].map((_, index) => (
-            <div
-              key={index}
-              className="particle"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${8 + Math.random() * 7}s`,
-              }}
-            ></div>
-          ))}
-        </div>
+        <div className="statistics-particles">{renderParticles()}</div>
       </div>
       <motion.div
         ref={ref}

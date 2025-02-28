@@ -378,3 +378,243 @@
     height: 80px;
   }
 }
+/* Mobile optimizations for Services component */
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .services-container {
+    padding: 80px 30px 60px !important;
+  }
+
+  .services-title {
+    font-size: 2.2rem !important;
+  }
+
+  .services-description {
+    font-size: 1.1rem !important;
+  }
+
+  /* Adjust service card height */
+  .service-card {
+    height: 100% !important;
+  }
+
+  /* Improve service image container */
+  .service-image-container {
+    height: 180px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-container {
+    padding: 60px 20px 40px !important;
+  }
+
+  .services-title {
+    font-size: 1.8rem !important;
+  }
+
+  .services-description {
+    font-size: 1rem !important;
+    max-width: 100% !important;
+  }
+
+  /* Adjust section spacing */
+  .section-header {
+    margin-bottom: 40px !important;
+  }
+
+  /* Make service cards more touch-friendly */
+  .service-card {
+    border-radius: 12px !important;
+  }
+
+  .service-image-container {
+    height: 160px !important;
+  }
+
+  /* Reduce animation complexity */
+  .service-card.hovered .service-image {
+    transform: scale(1.03) !important; /* Less scale for better performance */
+  }
+
+  .service-card.hovered {
+    transform: translateY(-5px) !important;
+  }
+
+  /* Simplify tech tags */
+  .service-tech-tag {
+    margin-bottom: 5px !important;
+    font-size: 0.8rem !important;
+  }
+
+  /* Adjust service title for better readability */
+  .service-title {
+    font-size: 1.4rem !important;
+    margin-bottom: 12px !important;
+  }
+
+  .service-title:after {
+    width: 40px !important;
+    height: 2px !important;
+  }
+
+  /* Adjust text size for better readability */
+  .service-description {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Simplify hover content */
+  .service-expanded-description {
+    font-size: 0.9rem !important;
+  }
+
+  .service-feature-text {
+    font-size: 0.85rem !important;
+  }
+
+  /* Optimize transition wave */
+  .service-wave-container {
+    height: 80px !important;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 576px) {
+  .services-container {
+    padding: 50px 15px 30px !important;
+  }
+
+  .services-title {
+    font-size: 1.6rem !important;
+  }
+
+  .services-description {
+    font-size: 0.95rem !important;
+  }
+
+  /* Further adjust service cards */
+  .service-card {
+    padding: 15px !important;
+  }
+
+  .service-image-container {
+    height: 140px !important;
+    border-radius: 8px !important;
+  }
+
+  .service-badge {
+    width: 30px !important;
+    height: 30px !important;
+    top: 15px !important;
+    right: 15px !important;
+  }
+
+  .service-title {
+    font-size: 1.3rem !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* Simplify feature list */
+  .service-feature-item {
+    padding: 3px 0 !important;
+  }
+
+  .service-feature-icon {
+    font-size: 12px !important;
+  }
+
+  /* Handle hover differently for touch devices */
+  @media (hover: none) {
+    .service-hover-content {
+      display: block !important;
+      height: auto !important;
+      opacity: 1 !important;
+    }
+
+    .service-card.hovered {
+      transform: none !important;
+    }
+
+    /* Use accordion-like behavior instead */
+    .service-title {
+      cursor: pointer !important;
+    }
+
+    .service-title:after {
+      transition: transform 0.3s ease !important;
+    }
+
+    .service-card.hovered .service-title:after {
+      transform: rotate(90deg) !important;
+    }
+  }
+}
+
+/* Very small screens */
+@media (max-width: 350px) {
+  .services-title {
+    font-size: 1.4rem !important;
+  }
+
+  .service-title {
+    font-size: 1.2rem !important;
+  }
+
+  .service-tech-tag {
+    font-size: 0.75rem !important;
+    padding: 2px 6px !important;
+  }
+
+  .service-description {
+    font-size: 0.9rem !important;
+  }
+
+  .service-expanded-description,
+  .service-feature-text {
+    font-size: 0.8rem !important;
+  }
+}
+
+/* Performance optimizations */
+@media (max-width: 992px) {
+  /* Simplify or disable transitions for better performance */
+  .service-card {
+    transition: transform 0.3s ease !important;
+  }
+
+  .service-image {
+    transition: transform 0.3s ease !important;
+  }
+
+  .service-title:after {
+    transition: width 0.3s ease !important;
+  }
+
+  /* Disable backdrop filter for better performance */
+  .service-card {
+    backdrop-filter: none !important;
+  }
+
+  /* Use hardware acceleration for smooth animations */
+  .service-card {
+    will-change: transform;
+  }
+
+  /* Simplify gradients */
+  .service-card.hovered {
+    background: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  /* Disable hover animations on touch devices */
+  @media (hover: none) {
+    .service-card:hover {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .service-card:active {
+      transform: scale(0.98) !important;
+    }
+  }
+}

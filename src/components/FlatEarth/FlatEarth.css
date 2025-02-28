@@ -939,3 +939,173 @@
     bottom: -80px;
   }
 }
+/* Add these mobile optimizations to the bottom of src/components/FlatEarth/FlatEarth.css */
+
+/* Improved mobile experience for FlatEarth component */
+@media (max-width: 768px) {
+  .creative-section {
+    padding: 60px 0 40px;
+  }
+
+  .creative-container {
+    padding: 0 15px;
+  }
+
+  .section-title {
+    font-size: 1.8rem !important;
+    margin-bottom: 15px !important;
+  }
+
+  .section-description {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .section-label {
+    padding: 6px 10px;
+    margin-bottom: 15px;
+  }
+
+  /* Make cards more compact on mobile */
+  .creative-card {
+    padding: 15px;
+  }
+
+  .card-icon-wrapper {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    margin-right: 12px;
+  }
+
+  .service-icon {
+    font-size: 18px;
+  }
+
+  .card-title {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .card-description {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  /* Optimize earth model for mobile */
+  .earth-container {
+    min-height: 320px;
+  }
+
+  .earth-model {
+    width: 240px;
+    height: 240px;
+  }
+
+  .earth-disc {
+    width: 220px;
+    height: 220px;
+  }
+
+  /* Smaller continents on mobile */
+  .continent-1 {
+    width: 70px;
+    height: 50px;
+  }
+
+  .continent-2 {
+    width: 90px;
+    height: 60px;
+  }
+
+  .continent-3 {
+    width: 50px;
+    height: 40px;
+  }
+
+  .continent-center {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* Simpler animations on mobile */
+  .map-element {
+    transition: transform 0.3s ease;
+  }
+
+  /* Enhance touch button */
+  .cta-button {
+    height: 45px !important;
+    font-size: 15px !important;
+  }
+
+  /* Simplify interaction hint for mobile */
+  .interaction-hint {
+    bottom: -30px;
+    font-size: 14px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 350px) {
+  .section-title {
+    font-size: 1.5rem !important;
+  }
+
+  .creative-card {
+    padding: 12px;
+  }
+
+  .card-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+  }
+
+  /* Even smaller earth on tiny screens */
+  .earth-model {
+    width: 200px;
+    height: 200px;
+  }
+
+  .earth-disc {
+    width: 180px;
+    height: 180px;
+  }
+
+  /* Reduce size of map elements on very small screens */
+  .map-element {
+    transform: scale(0.8);
+  }
+
+  .dragons-text {
+    font-size: 9px;
+  }
+}
+
+/* Will-change optimization for smoother animations */
+.earth-model {
+  will-change: transform;
+}
+
+/* Reduce GPU load on mobile */
+@media (max-width: 768px) {
+  .creative-section {
+    background: #0c0d2e; /* Solid color background instead of gradient on mobile */
+  }
+
+  /* Simplify animations */
+  @keyframes float-animation {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(0, -10px);
+    }
+  }
+
+  /* Disable more intensive animations on mobile */
+  .orbit-circle {
+    display: none;
+  }
+}

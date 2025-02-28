@@ -23,6 +23,19 @@ const FlatEarth = () => {
     threshold: 0.1,
   });
 
+  // Use a simple approach to detect mobile devices
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  // Update on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Interactive earth model state
   const earthContainerRef = useRef(null);
   const [isHovering, setIsHovering] = useState(false);
@@ -33,7 +46,8 @@ const FlatEarth = () => {
 
   // Handle mouse movement for the parallax tilt effect
   const handleMouseMove = (e) => {
-    if (!earthContainerRef.current) return;
+    if (!earthContainerRef.current || isMobile) return; // Skip complex calculations on mobile
+
     const rect = earthContainerRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -53,21 +67,73 @@ const FlatEarth = () => {
     }
   }, [inView, controls]);
 
+  // Use refs to always have the latest values for hover and mousePosition
+  const isHoveringRef = useRef(isHovering);
+  const mousePositionRef = useRef(mousePosition);
+  useEffect(() => {
+    isHoveringRef.current = isHovering;
+    mousePositionRef.current = mousePosition;
+  }, [isHovering, mousePosition]);
+
+  // Continuous animation loop for a dynamic flat earth model in space.
+  // When not hovering, the earth gently rotates on its own.
+  // When hovering, the mouse offsets add a subtle tilt.
+  useEffect(() => {
+    let frameId;
+    let baseRotationY = 0;
+
+    const animate = () => {
+      // Slower rotation on mobile for better performance
+      baseRotationY += isMobile ? 0.01 : 0.03;
+
+      setEarthRotation((prev) => {
+        // Simpler animation logic for mobile
+        if (isMobile) {
+          return {
+            x: 5,
+            y: baseRotationY,
+          };
+        }
+
+        // Regular animation logic for desktop
+        const targetX = isHoveringRef.current
+          ? -mousePositionRef.current.y * 15
+          : 5;
+        const targetY = isHoveringRef.current
+          ? baseRotationY + mousePositionRef.current.x * 15
+          : baseRotationY;
+
+        return {
+          x: prev.x + (targetX - prev.x) * 0.05, // Slower transition
+          y: prev.y + (targetY - prev.y) * 0.05,
+        };
+      });
+
+      frameId = requestAnimationFrame(animate);
+    };
+
+    animate();
+    return () => cancelAnimationFrame(frameId);
+  }, [isMobile]); // Add isMobile as a dependency
+
   // Framer-motion variants for fade-in & staggered child animations
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+      transition: {
+        staggerChildren: isMobile ? 0.05 : 0.1,
+        delayChildren: isMobile ? 0.05 : 0.1,
+      },
     },
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: isMobile ? 10 : 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.7, ease: "easeOut" },
+      transition: { duration: isMobile ? 0.5 : 0.7, ease: "easeOut" },
     },
   };
 
@@ -99,77 +165,45 @@ const FlatEarth = () => {
     },
   ];
 
-  // Use refs to always have the latest values for hover and mousePosition
-  const isHoveringRef = useRef(isHovering);
-  const mousePositionRef = useRef(mousePosition);
-  useEffect(() => {
-    isHoveringRef.current = isHovering;
-    mousePositionRef.current = mousePosition;
-  }, [isHovering, mousePosition]);
+  // Render only a subset of particles on mobile
+  const renderParticles = () => {
+    const particleCount = isMobile ? 5 : 25; // Fewer particles on mobile
 
-  // Continuous animation loop for a dynamic flat earth model in space.
-  // When not hovering, the earth gently rotates on its own.
-  // When hovering, the mouse offsets add a subtle tilt.
-  useEffect(() => {
-    let frameId;
-    let baseRotationY = 0; // Base rotation on Y (increases over time)
-
-    const animate = () => {
-      baseRotationY += 0.03; // Significantly slowed down rotation
-
-      setEarthRotation((prev) => {
-        // Calculate target rotations:
-        // If hovering, add mouse offset; otherwise, use default base values.
-        const targetX = isHoveringRef.current
-          ? -mousePositionRef.current.y * 15
-          : 5;
-        const targetY = isHoveringRef.current
-          ? baseRotationY + mousePositionRef.current.x * 15
-          : baseRotationY;
-        return {
-          x: prev.x + (targetX - prev.x) * 0.05, // Slower transition
-          y: prev.y + (targetY - prev.y) * 0.05,
-        };
-      });
-
-      frameId = requestAnimationFrame(animate);
-    };
-
-    animate();
-    return () => cancelAnimationFrame(frameId);
-  }, []);
+    return [...Array(particleCount)].map((_, i) => (
+      <div
+        key={i}
+        className="star"
+        style={{
+          top: `${Math.random() * 100}%`,
+          left: `${Math.random() * 100}%`,
+          width: `${1 + Math.random() * 2}px`,
+          height: `${1 + Math.random() * 2}px`,
+          animationDelay: `${Math.random() * 10}s`,
+        }}
+      ></div>
+    ));
+  };
 
   return (
     <section className="creative-section" id="flat-earth" ref={ref}>
       <div className="creative-bg">
-        <div className="stars"></div>
-        {/* Fewer shooting stars with longer animation duration */}
-        {[...Array(2)].map((_, i) => (
-          <div
-            key={i}
-            className="shooting-star"
-            style={{
-              top: `${Math.random() * 70}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${i * 15}s`,
-              width: `${150 + Math.random() * 50}px`,
-            }}
-          ></div>
-        ))}
-        {/* Fewer background stars with slower animation */}
-        {[...Array(25)].map((_, i) => (
-          <div
-            key={i}
-            className="star"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              width: `${1 + Math.random() * 2}px`,
-              height: `${1 + Math.random() * 2}px`,
-              animationDelay: `${Math.random() * 10}s`,
-            }}
-          ></div>
-        ))}
+        <div className="stars">
+          {/* Fewer shooting stars with longer animation duration */}
+          {[...Array(isMobile ? 1 : 2)].map((_, i) => (
+            <div
+              key={i}
+              className="shooting-star"
+              style={{
+                top: `${Math.random() * 70}%`,
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${i * 15}s`,
+                width: `${150 + Math.random() * 50}px`,
+              }}
+            ></div>
+          ))}
+          {/* Render optimized number of stars */}
+          {renderParticles()}
+        </div>
       </div>
 
       <div className="creative-container">
@@ -206,8 +240,8 @@ const FlatEarth = () => {
                     variants={itemVariants}
                     className="creative-card"
                     whileHover={{
-                      y: -5,
-                      x: 5,
+                      y: isMobile ? -3 : -5,
+                      x: isMobile ? 3 : 5,
                       transition: { duration: 0.2 },
                     }}
                   >
@@ -248,12 +282,14 @@ const FlatEarth = () => {
                 ref={earthContainerRef}
                 className="earth-container"
                 variants={itemVariants}
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => setIsHovering(false)}
+                onMouseEnter={() => !isMobile && setIsHovering(true)}
+                onMouseLeave={() => !isMobile && setIsHovering(false)}
                 onMouseMove={handleMouseMove}
+                onTouchStart={() => isMobile && setIsHovering(true)} // Add touch support
+                onTouchEnd={() => isMobile && setIsHovering(false)}
               >
-                {/* Cursor glow effect */}
-                {isHovering && (
+                {/* Cursor glow effect - only on desktop */}
+                {isHovering && !isMobile && (
                   <div
                     className="cursor-glow"
                     style={{
@@ -305,10 +341,15 @@ const FlatEarth = () => {
                         ></div>
                       </div>
 
-                      {/* Cloud layers */}
-                      <div className="cloud cloud-1"></div>
-                      <div className="cloud cloud-2"></div>
-                      <div className="cloud cloud-3"></div>
+                      {/* Render fewer clouds on mobile */}
+                      {!isMobile && (
+                        <>
+                          <div className="cloud cloud-1"></div>
+                          <div className="cloud cloud-2"></div>
+                          <div className="cloud cloud-3"></div>
+                        </>
+                      )}
+                      {isMobile && <div className="cloud cloud-1"></div>}
 
                       {/* Lighting effect */}
                       <div className="earth-lighting"></div>
@@ -340,7 +381,9 @@ const FlatEarth = () => {
 
                 <div className="interaction-hint">
                   <span className="hint-text">
-                    Hover to find truth (but don't sail too close to the edge!)
+                    {isMobile
+                      ? "Tap to see the truth!"
+                      : "Hover to find truth (but don't sail too close to the edge!)"}
                   </span>
                 </div>
               </motion.div>

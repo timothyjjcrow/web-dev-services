@@ -314,3 +314,415 @@ button,
     flex-direction: column !important;
   }
 }
+/* Global mobile optimizations for src/App.css */
+
+/* iOS scroll optimization */
+html,
+body {
+  -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+  overscroll-behavior-y: none; /* Prevent bounce effect on some mobile browsers */
+}
+
+/* Fix 100vh issue on mobile browsers (especially iOS) */
+.hero-section {
+  height: 100vh; /* Fallback */
+  height: calc(var(--vh, 1vh) * 100); /* Dynamic viewport height calculation */
+}
+
+/* Optimize tap highlight color */
+a,
+button,
+[role="button"],
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1); /* Subtle highlight */
+  tap-highlight-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Fix mobile input zoom */
+@media (max-width: 768px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important; /* Prevents iOS zoom on input focus */
+  }
+}
+
+/* Improve touch targets for all interactive elements */
+@media (max-width: 768px) {
+  button,
+  a,
+  .ant-btn,
+  .ant-input,
+  .ant-select-selector,
+  .ant-checkbox,
+  .ant-radio,
+  [role="button"] {
+    min-height: 44px; /* Minimum touch target size */
+  }
+
+  /* Add gap between interactive elements */
+  button + button,
+  a + a,
+  .ant-btn + .ant-btn {
+    margin-left: 8px;
+  }
+}
+
+/* Fix for address bar appearance/disappearance on mobile */
+@media (max-width: 768px) {
+  .content-wrapper {
+    padding-bottom: env(
+      safe-area-inset-bottom,
+      20px
+    ); /* iOS safe area support */
+  }
+}
+
+/* Responsive font scaling */
+@media (max-width: 768px) {
+  html {
+    font-size: 16px; /* Base font size for mobile */
+  }
+
+  h1,
+  .ant-typography h1 {
+    font-size: 2rem !important;
+  }
+
+  h2,
+  .ant-typography h2 {
+    font-size: 1.75rem !important;
+  }
+
+  h3,
+  .ant-typography h3 {
+    font-size: 1.5rem !important;
+  }
+
+  h4,
+  .ant-typography h4 {
+    font-size: 1.25rem !important;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 350px) {
+  h1,
+  .ant-typography h1 {
+    font-size: 1.8rem !important;
+  }
+
+  h2,
+  .ant-typography h2 {
+    font-size: 1.6rem !important;
+  }
+
+  h3,
+  .ant-typography h3 {
+    font-size: 1.4rem !important;
+  }
+
+  h4,
+  .ant-typography h4 {
+    font-size: 1.2rem !important;
+  }
+}
+
+/* Fix for fixed element issues on iOS */
+@supports (-webkit-touch-callout: none) {
+  .site-header {
+    /* iOS 15 fix for fixed header */
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .back-to-top {
+    bottom: env(
+      safe-area-inset-bottom,
+      30px
+    ) !important; /* Respect safe area */
+  }
+}
+
+/* Performance optimizations */
+.site-header,
+.back-to-top,
+.hero-button,
+.service-card,
+.team-card,
+.testimonial-card,
+.statistic-card {
+  will-change: transform;
+}
+
+/* Reduce animation complexity for better mobile performance */
+@media (max-width: 768px) {
+  [class*="animated-"],
+  [class*="animation-"] {
+    animation-duration: 0.5s !important; /* Faster animations on mobile */
+  }
+
+  /* Disable parallax effects on mobile */
+  .hero-shape,
+  .creative-bg,
+  .testimonials-bg-shape {
+    transform: none !important;
+  }
+
+  /* Use simpler transition properties */
+  .ant-btn,
+  .ant-card,
+  .ant-input,
+  a {
+    transition: transform 0.3s ease, opacity 0.3s ease !important;
+  }
+}
+
+/* Better handling of notch/cutout on mobile devices */
+@supports (padding: max(0px)) {
+  .site-header,
+  .hero-container,
+  .footer-content {
+    padding-left: max(20px, env(safe-area-inset-left)) !important;
+    padding-right: max(20px, env(safe-area-inset-right)) !important;
+  }
+}
+
+/* Fingerprint-friendly touch feedback */
+@media (max-width: 768px) {
+  .ant-btn:active,
+  a:active,
+  [role="button"]:active {
+    transform: scale(0.98); /* Subtle scale on tap */
+    opacity: 0.9; /* Subtle opacity change on tap */
+  }
+}
+
+/* Fix font smoothing across devices */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+/* Accessibility improvements for src/App.css */
+
+/* Better focus states for keyboard navigation */
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus,
+.ant-input:focus,
+.ant-btn:focus,
+[tabindex]:focus {
+  outline: 2px solid #26d0ce !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 3px rgba(38, 208, 206, 0.3) !important;
+}
+
+/* Skip link for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  padding: 10px;
+  background: #26d0ce;
+  color: #000000;
+  z-index: 1000;
+  font-weight: bold;
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Ensure adequate color contrast for text */
+.footer-copyright .copyright-text,
+.footer-legal-link,
+.contact-description,
+.testimonials-description {
+  color: rgba(255, 255, 255, 0.7) !important; /* Improve contrast from 0.5 */
+}
+
+.ant-btn-text {
+  color: rgba(255, 255, 255, 0.85) !important; /* Better contrast */
+}
+
+/* Enhance text readability */
+p,
+li,
+span,
+div {
+  line-height: 1.5 !important;
+}
+
+/* Improved link underlines */
+a {
+  text-decoration-skip-ink: auto; /* Improves readability of underlined text */
+}
+
+/* More accessible form elements */
+.ant-form-item-label > label {
+  font-weight: 500 !important; /* More visible labels */
+}
+
+.ant-form-item-required::before {
+  color: #ff4d4f !important; /* Better contrast for required marker */
+}
+
+.ant-form-item-explain-error {
+  margin-top: 4px !important; /* Better spacing for error messages */
+  font-weight: 500 !important; /* More visible error text */
+}
+
+/* Visually indicate interactive elements */
+.ant-btn:hover,
+a:hover {
+  text-decoration: none !important;
+}
+
+/* Mobile-specific accessibility */
+@media (max-width: 768px) {
+  /* Increase base font size on mobile for better readability */
+  html {
+    font-size: 16px; /* Ensure minimum 16px font size for readability */
+  }
+
+  /* Increase spacing between clickable elements */
+  .tech-icons-container,
+  .social-icons,
+  .footer-social,
+  .ant-menu-item,
+  .ant-btn + .ant-btn {
+    gap: 12px !important; /* Minimum 8px gap between touch targets */
+  }
+
+  /* Ensure form labels are visible */
+  .ant-form-item-label > label {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  /* Better touch feedback */
+  a:active,
+  button:active,
+  .ant-btn:active {
+    opacity: 0.8;
+  }
+
+  /* Increase touch target size */
+  .ant-btn,
+  button,
+  a[role="button"],
+  .mobile-nav-links li a {
+    min-height: 44px !important; /* Recommended minimum size */
+    min-width: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Increase icon touch target size */
+  .ant-btn .anticon,
+  .contact-icon,
+  .footer-icon,
+  .service-icon {
+    font-size: 1.25rem !important; /* Minimum size for touch icon */
+  }
+
+  /* Enhance tap highlights for iOS */
+  a,
+  button,
+  input,
+  select,
+  textarea {
+    -webkit-tap-highlight-color: rgba(
+      38,
+      208,
+      206,
+      0.2
+    ); /* Custom tap highlight */
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animated-background-shape,
+  .animated-value,
+  .particle,
+  .cloud,
+  .code-line,
+  .shooting-star {
+    display: none !important; /* Hide purely decorative animations */
+  }
+
+  /* Disable complex animations */
+  .hero-model,
+  .earth-model {
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (forced-colors: active) {
+  /* Ensure buttons have clear boundaries */
+  .ant-btn {
+    border: 2px solid currentColor !important;
+  }
+
+  /* Ensure focus states are visible */
+  *:focus {
+    outline: 2px solid CanvasText !important;
+  }
+
+  /* Fix SVG icons visibility */
+  .anticon svg,
+  svg.icon {
+    forced-color-adjust: auto;
+  }
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Better form controls for assistive tech */
+.ant-checkbox,
+.ant-radio {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+/* Ensure adequate text spacing */
+.contact-description,
+.services-description,
+.hero-description,
+.about-story-text,
+.testimonial-content,
+.stat-label {
+  letter-spacing: 0.01em !important; /* Slight improvement to character spacing */
+  word-spacing: 0.05em !important; /* Slight improvement to word spacing */
+}

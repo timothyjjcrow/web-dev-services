@@ -318,3 +318,210 @@
     transform: scale(0.98) !important;
   }
 }
+/* Add these mobile optimizations to src/components/Statistics/Statistics.css */
+
+/* Additional mobile optimizations */
+@media (max-width: 768px) {
+  .statistics-section {
+    padding: 50px 0 !important;
+    margin-top: -60px !important;
+  }
+
+  /* Reduce animation complexity for better performance */
+  .particle {
+    animation-duration: 5s !important; /* Shorter animation */
+  }
+
+  /* Show fewer particles on mobile */
+  .particle:nth-child(odd) {
+    display: none; /* Hide half the particles */
+  }
+
+  /* Optimize stats card for mobile */
+  .statistic-card {
+    padding: 25px 15px !important;
+  }
+
+  .stat-icon {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .stat-value {
+    font-size: 2.5rem !important;
+    min-height: 60px !important;
+  }
+
+  .stat-label {
+    font-size: 0.9rem !important;
+  }
+
+  /* Make stat value more readable on smaller screens */
+  .stat-value:after {
+    width: 30px !important;
+    height: 2px !important;
+  }
+
+  .stat-value-container {
+    min-height: 60px !important;
+  }
+
+  /* Optimize layout */
+  .statistics-container {
+    padding: 0 15px;
+  }
+
+  /* Reduce backdrop filter complexity for better performance */
+  .statistic-card {
+    backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  /* Add tap feedback */
+  .statistic-card:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Small Mobile Devices - additional optimizations */
+@media (max-width: 575.98px) {
+  .statistics-section {
+    padding: 40px 10px !important;
+    margin-top: -40px !important;
+  }
+
+  .statistics-container {
+    padding: 0 10px !important;
+  }
+
+  .statistic-card {
+    padding: 20px 12px !important;
+  }
+
+  .stat-icon {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .stat-icon-container {
+    margin-bottom: 15px !important;
+  }
+
+  .stat-value-container {
+    min-height: 50px !important;
+  }
+
+  .stat-value {
+    font-size: 2rem !important;
+    margin-bottom: 8px !important;
+  }
+
+  .stat-value:after {
+    width: 25px !important;
+    height: 2px !important;
+    bottom: -3px !important;
+  }
+
+  .stat-label {
+    font-size: 0.8rem !important;
+  }
+
+  /* Full-width cards on very small screens */
+  .stat-card-col {
+    margin-bottom: 10px !important;
+  }
+
+  .particle {
+    width: 4px !important;
+    height: 4px !important;
+  }
+
+  /* Hide more particles on very small screens */
+  .particle:nth-child(3n + 1) {
+    display: none; /* Show only every third particle */
+  }
+
+  /* Simplify animations for better performance */
+  @keyframes float-particle {
+    0% {
+      transform: translateY(0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.5;
+    }
+    80% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+  }
+}
+
+/* Very small screens */
+@media (max-width: 350px) {
+  .stat-value {
+    font-size: 1.8rem !important;
+  }
+
+  .stat-label {
+    font-size: 0.75rem !important;
+  }
+
+  .stat-icon {
+    width: 35px !important;
+    height: 35px !important;
+  }
+
+  .statistics-section {
+    padding: 30px 10px !important;
+  }
+
+  /* Further simplify animations */
+  .stat-highlight {
+    height: 3px !important;
+  }
+}
+
+/* Performance optimizations for all mobile devices */
+@media (max-width: 992px) {
+  /* Use will-change sparingly for critical animations */
+  .stat-number {
+    will-change: contents;
+  }
+
+  /* Disable box-shadow transitions for better performance */
+  .statistic-card {
+    transition: transform 0.3s ease !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  /* Use transform over other properties for animations */
+  .statistic-card:hover {
+    transform: translateY(-5px) !important;
+  }
+
+  /* Optimize background effects */
+  .statistics-background {
+    background: #000000 !important; /* Solid color for better performance */
+  }
+
+  /* Reduce or eliminate text-shadow effects */
+  .stat-value {
+    text-shadow: none !important;
+  }
+}
+
+/* Better touch device support */
+@media (hover: none) {
+  .statistic-card {
+    transform: none !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .statistic-card:active {
+    transform: scale(0.98) !important;
+  }
+}

@@ -20,28 +20,28 @@ const StatCard = ({ stat, index }) => {
   // Simplified animation variants for mobile
   const cardVariants = {
     hidden: {
-      y: 30,
+      y: isMobile ? 20 : 30, // Less movement on mobile
       opacity: 0,
-      scale: isMobile ? 0.95 : 0.8, // Less scale on mobile
+      scale: isMobile ? 0.97 : 0.8, // Less scaling on mobile
     },
     visible: {
       y: 0,
       opacity: 1,
       scale: 1,
       transition: {
-        type: "spring",
-        stiffness: isMobile ? 70 : 100, // Gentler animation on mobile
-        damping: isMobile ? 15 : 12,
-        delay: isMobile ? index * 0.08 : index * 0.1, // Faster delays on mobile
+        type: isMobile ? "tween" : "spring", // Use simpler animation type on mobile
+        stiffness: isMobile ? 50 : 100, // Lower stiffness for mobile
+        damping: isMobile ? 10 : 12,
+        delay: isMobile ? index * 0.05 : index * 0.1, // Shorter delays on mobile
       },
     },
     hover: {
-      y: isMobile ? -5 : -15, // Smaller hover effect on mobile
-      scale: isMobile ? 1.02 : 1.05,
+      y: isMobile ? -3 : -15, // Smaller hover effect on mobile
+      scale: isMobile ? 1.01 : 1.05, // Smaller scale effect on mobile
       boxShadow: "0 20px 30px rgba(0, 0, 0, 0.2)",
       transition: {
-        type: "spring",
-        stiffness: isMobile ? 200 : 300,
+        type: isMobile ? "tween" : "spring", // Use simpler animation on mobile
+        stiffness: isMobile ? 100 : 300,
         damping: 20,
       },
     },
@@ -53,16 +53,63 @@ const StatCard = ({ stat, index }) => {
       scale: 1,
       opacity: 1,
       transition: {
-        type: "spring",
-        stiffness: isMobile ? 200 : 300,
-        delay: isMobile ? index * 0.15 : index * 0.2 + 0.3,
+        type: isMobile ? "tween" : "spring",
+        stiffness: isMobile ? 100 : 300,
+        delay: isMobile ? index * 0.1 : index * 0.2 + 0.3,
       },
     },
   };
 
-  // Counter animation
+  // Counter animation - optimized for mobile
   useEffect(() => {
-    // Check if element is in viewport using IntersectionObserver
+    if (!isInView) return;
+
+    // Determine if this is a mobile device
+    const isMobile = window.innerWidth <= 768;
+
+    // Shorter animation on mobile
+    const duration = isMobile ? 1200 : 2000;
+
+    // Simpler animation logic for mobile
+    if (isMobile) {
+      // Simpler, less CPU-intensive animation for mobile
+      let startValue = 0;
+      const increment = Math.ceil(targetValue / 15);
+      const interval = Math.floor(duration / 15);
+
+      const timer = setInterval(() => {
+        startValue += increment;
+        if (startValue >= targetValue) {
+          startValue = targetValue;
+          clearInterval(timer);
+        }
+        setCounted(startValue);
+      }, interval);
+
+      return () => clearInterval(timer);
+    } else {
+      // Keep the existing requestAnimationFrame version for desktop
+      let startTimestamp;
+      let animationFrameId;
+
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const easedProgress = easeOutExpo(progress);
+        setCounted(Math.floor(easedProgress * targetValue));
+
+        if (progress < 1) {
+          animationFrameId = window.requestAnimationFrame(step);
+        }
+      };
+
+      animationFrameId = window.requestAnimationFrame(step);
+      return () => window.cancelAnimationFrame(animationFrameId);
+    }
+  }, [isInView, targetValue]);
+
+  // Check if element is in viewport using IntersectionObserver
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
@@ -70,7 +117,10 @@ const StatCard = ({ stat, index }) => {
           observer.disconnect();
         }
       },
-      { threshold: 0.1 } // Lower threshold for earlier triggering on mobile
+      {
+        threshold: isMobile ? 0.1 : 0.2, // Lower threshold for earlier triggering on mobile
+        rootMargin: isMobile ? "-5%" : "-10%",
+      }
     );
 
     if (cardRef.current) {
@@ -80,36 +130,7 @@ const StatCard = ({ stat, index }) => {
     return () => {
       if (cardRef.current) observer.disconnect();
     };
-  }, []);
-
-  // Improved number counter animation
-  useEffect(() => {
-    if (!isInView) return;
-
-    let startTimestamp;
-    const duration = isMobile ? 1500 : 2000; // Shorter animation on mobile
-    let animationFrameId;
-
-    const step = (timestamp) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-
-      // Easing function for smooth animation
-      const easedProgress = easeOutExpo(progress);
-
-      setCounted(Math.floor(easedProgress * targetValue));
-
-      if (progress < 1) {
-        animationFrameId = window.requestAnimationFrame(step);
-      }
-    };
-
-    animationFrameId = window.requestAnimationFrame(step);
-
-    return () => {
-      window.cancelAnimationFrame(animationFrameId);
-    };
-  }, [isInView, targetValue]);
+  }, [isMobile]);
 
   // Easing function
   const easeOutExpo = (x) => {

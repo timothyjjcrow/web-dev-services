@@ -355,3 +355,203 @@
     flex-wrap: wrap;
   }
 }
+/* Mobile optimizations for Footer component */
+
+/* Enhanced mobile styles */
+@media (max-width: 992px) {
+  .footer-content {
+    padding: 50px 30px 20px !important;
+  }
+
+  .footer-title {
+    font-size: 1.3rem !important;
+    margin-bottom: 15px !important;
+  }
+
+  /* Reduce footer particles for better performance */
+  .footer-particle {
+    display: none;
+  }
+
+  .footer-particle:nth-child(3n) {
+    display: block; /* Show only every third particle */
+  }
+
+  /* Optimize backdrop filter for better performance */
+  .footer-newsletter-input,
+  .footer-content {
+    backdrop-filter: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    padding: 40px 20px 15px !important;
+  }
+
+  /* Better spacing between footer sections */
+  .ant-col {
+    margin-bottom: 30px !important;
+  }
+
+  /* Center the logo and description on mobile */
+  .footer-logo,
+  .footer-description {
+    text-align: center !important;
+  }
+
+  .logo-underline {
+    margin: 0 auto !important;
+  }
+
+  /* Center social icons on mobile */
+  .footer-social {
+    justify-content: center !important;
+    margin-top: 20px !important;
+  }
+
+  /* Better styling for mobile footers */
+  .footer-title::after {
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 auto !important;
+  }
+
+  /* Stack footer bottom content */
+  .footer-bottom {
+    flex-direction: column !important;
+    gap: 15px !important;
+    text-align: center !important;
+  }
+
+  .footer-legal {
+    justify-content: center !important;
+    margin-top: 10px !important;
+  }
+
+  /* Better touch targets for footer links */
+  .footer-links li {
+    margin-bottom: 12px !important;
+  }
+
+  .footer-links li a,
+  .footer-contact li {
+    padding: 8px 0 !important;
+    display: inline-block !important;
+  }
+
+  /* Improve newsletter form on mobile */
+  .footer-newsletter-form {
+    margin-bottom: 25px !important;
+  }
+
+  .footer-newsletter-input {
+    height: 45px !important;
+    font-size: 16px !important; /* Prevent iOS zoom */
+  }
+
+  .footer-newsletter-button {
+    height: 45px !important;
+  }
+
+  /* Fix icon alignment */
+  .footer-icon {
+    margin-top: 0 !important;
+  }
+
+  /* Better social link touch targets */
+  .footer-social-link {
+    width: 44px !important;
+    height: 44px !important;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 576px) {
+  .footer-content {
+    padding: 35px 15px 15px !important;
+  }
+
+  .footer-title {
+    font-size: 1.2rem !important;
+    margin-bottom: 12px !important;
+    text-align: center !important;
+  }
+
+  .footer-description {
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Better layout for contact info */
+  .footer-contact li {
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    flex-direction: column !important;
+  }
+
+  .footer-icon {
+    margin-right: 0 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .footer-bottom {
+    padding-top: 5px !important;
+  }
+
+  .footer-legal {
+    gap: 15px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .copyright-text,
+  .footer-legal-link {
+    font-size: 0.85rem !important;
+  }
+
+  /* Center all link lists */
+  .footer-links {
+    text-align: center !important;
+  }
+
+  .footer-links li a:before {
+    display: none !important;
+  }
+
+  .footer-links li a {
+    padding-left: 0 !important;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 350px) {
+  .footer-social-link {
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 16px !important;
+  }
+
+  .footer-legal-link {
+    font-size: 0.8rem !important;
+  }
+
+  .footer-newsletter-input {
+    font-size: 14px !important;
+  }
+}
+
+/* iOS safe area support */
+@supports (-webkit-touch-callout: none) {
+  .footer {
+    padding-bottom: env(safe-area-inset-bottom, 0) !important;
+  }
+}
+
+/* Tap highlight color for iOS */
+.footer-links li a,
+.footer-social-link,
+.footer-legal-link,
+.footer-newsletter-button {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+}

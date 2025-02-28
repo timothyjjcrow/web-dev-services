@@ -1,5 +1,5 @@
 // src/components/About/About.js
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Typography, Card, Statistic, Divider, Button } from "antd";
 import {
   RocketOutlined,
@@ -117,13 +117,32 @@ const companyStats = [
 ];
 
 const About = () => {
-  // Animation variants
+  // Mobile detection
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  // Handle window resize to detect mobile
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    // Initial check
+    handleResize();
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Animation variants - optimized for mobile
   const fadeInUp = {
-    hidden: { opacity: 0, y: 60 },
+    hidden: { opacity: 0, y: isMobile ? 30 : 60 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: isMobile ? 0.4 : 0.6, ease: "easeOut" },
     },
   };
 
@@ -132,41 +151,41 @@ const About = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.1,
+        staggerChildren: isMobile ? 0.05 : 0.1,
+        delayChildren: isMobile ? 0.05 : 0.1,
       },
     },
   };
 
-  // Use intersection observer hooks for animations
+  // Use intersection observer hooks with mobile-friendly settings
   const [heroRef, heroInView] = useInView({
     triggerOnce: true,
-    threshold: 0.1,
-    rootMargin: "-10px 0px",
+    threshold: 0.05, // Lower threshold to trigger earlier
+    rootMargin: "-20px 0px", // More generous margin
   });
 
   const [valuesRef, valuesInView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-    rootMargin: "-100px 0px",
+    triggerOnce: true, // Make it stay visible once it appears
+    threshold: 0.05, // Much lower threshold for mobile
+    rootMargin: "-50px 0px", // More margin to trigger earlier
   });
 
   const [timelineRef, timelineInView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-    rootMargin: "-100px 0px",
+    triggerOnce: true,
+    threshold: 0.05,
+    rootMargin: "-50px 0px",
   });
 
   const [teamRef, teamInView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-    rootMargin: "-100px 0px",
+    triggerOnce: true,
+    threshold: 0.05,
+    rootMargin: "-50px 0px",
   });
 
   const [statsRef, statsInView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-    rootMargin: "-100px 0px",
+    triggerOnce: true,
+    threshold: 0.05,
+    rootMargin: "-50px 0px",
   });
 
   return (
@@ -217,12 +236,15 @@ const About = () => {
           </Col>
           <Col xs={24} lg={12}>
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
+              initial={{ opacity: 0, x: isMobile ? 20 : 40 }}
               animate={{
                 opacity: heroInView ? 1 : 1,
                 x: heroInView ? 0 : 0,
               }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{
+                duration: isMobile ? 0.4 : 0.6,
+                delay: isMobile ? 0.1 : 0.2,
+              }}
               className="about-story-content"
             >
               <Title level={2} className="section-title">
@@ -250,7 +272,7 @@ const About = () => {
         </Row>
       </div>
 
-      {/* Values Section */}
+      {/* Values Section - Fixed for Mobile */}
       <div className="about-values container">
         <motion.div
           ref={valuesRef}
@@ -273,13 +295,17 @@ const About = () => {
           variants={staggerContainer}
           initial="hidden"
           animate={valuesInView ? "visible" : "hidden"}
+          className="values-container"
         >
           <Row gutter={[32, 32]} className="values-row">
             {companyValues.map((value, index) => (
               <Col xs={24} sm={12} lg={6} key={index}>
                 <motion.div
                   variants={fadeInUp}
-                  whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                  whileHover={
+                    !isMobile ? { y: -10, transition: { duration: 0.3 } } : {}
+                  }
+                  whileTap={isMobile ? { scale: 0.98 } : {}}
                   className="value-card"
                 >
                   <div className="value-icon-wrapper">{value.icon}</div>
@@ -393,7 +419,10 @@ const About = () => {
               <Col xs={24} md={8} key={index}>
                 <motion.div
                   variants={fadeInUp}
-                  whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                  whileHover={
+                    !isMobile ? { y: -10, transition: { duration: 0.3 } } : {}
+                  }
+                  whileTap={isMobile ? { scale: 0.98 } : {}}
                   className="team-card"
                 >
                   <div className="team-image-container">

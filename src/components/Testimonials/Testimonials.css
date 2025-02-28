@@ -282,3 +282,202 @@
     display: none;
   }
 }
+/* Mobile optimizations for Testimonials component */
+
+/* Mobile responsive styles */
+@media (max-width: 992px) {
+  .testimonials-section {
+    padding: 80px 30px 60px !important;
+  }
+
+  .testimonials-title {
+    font-size: 2.2rem !important;
+  }
+
+  .testimonials-description {
+    font-size: 1.1rem !important;
+  }
+
+  /* Reduce complexity of background shapes */
+  .testimonials-bg-shape {
+    opacity: 0.3 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonials-section {
+    padding: 60px 20px 40px !important;
+  }
+
+  .testimonials-title {
+    font-size: 1.8rem !important;
+  }
+
+  .testimonials-description {
+    font-size: 1rem !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* Better spacing for mobile layouts */
+  .testimonials-header {
+    margin-bottom: 40px !important;
+  }
+
+  .testimonial-card {
+    padding: 25px 20px !important;
+  }
+
+  /* Adjust author section for better mobile layout */
+  .testimonial-header {
+    flex-direction: column !important;
+    text-align: center !important;
+    margin-bottom: 20px !important;
+  }
+
+  .testimonial-author {
+    margin-left: 0 !important;
+    margin-top: 15px !important;
+  }
+
+  /* More compact avatar on mobile */
+  .ant-avatar {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .testimonial-author h4 {
+    font-size: 1.2rem !important;
+    margin-bottom: 3px !important;
+  }
+
+  /* Better content area on mobile */
+  .testimonial-content {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    padding-left: 0 !important; /* Remove unnecessary padding */
+    text-align: center !important;
+  }
+
+  .testimonial-content::before {
+    display: none !important; /* Remove the quote icon on mobile */
+  }
+
+  /* Center rating stars on mobile */
+  .testimonial-rating {
+    text-align: center !important;
+    margin-top: 15px !important;
+  }
+
+  /* Hide or simplify decorative elements */
+  .testimonial-quote-icon {
+    display: none !important; /* Hide decorative quote on mobile */
+  }
+
+  /* Reduce particles for better performance */
+  .testimonials-particle {
+    display: none !important;
+  }
+
+  .testimonials-particle:nth-child(3n) {
+    display: block !important; /* Show only every third particle */
+  }
+
+  /* Optimize backdrop filter for better performance */
+  .testimonial-card {
+    backdrop-filter: none !important;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 576px) {
+  .testimonials-section {
+    padding: 50px 15px 30px !important;
+  }
+
+  .testimonials-title {
+    font-size: 1.6rem !important;
+  }
+
+  .testimonial-card {
+    padding: 20px 15px !important;
+  }
+
+  .ant-avatar {
+    width: 50px !important;
+    height: 50px !important;
+    border-width: 2px !important;
+  }
+
+  .testimonial-author h4 {
+    font-size: 1.1rem !important;
+  }
+
+  .testimonial-content {
+    font-size: 0.9rem !important;
+    margin-bottom: 15px !important;
+  }
+
+  .star {
+    font-size: 16px !important;
+    margin-right: 3px !important;
+  }
+
+  /* Disable hover animations on small devices */
+  .testimonial-card:hover .star {
+    animation: none !important;
+  }
+
+  /* Fewer and smaller particles */
+  .testimonials-particle {
+    width: 3px !important;
+    height: 3px !important;
+  }
+}
+
+/* Very small mobile devices */
+@media (max-width: 350px) {
+  .testimonials-title {
+    font-size: 1.4rem !important;
+  }
+
+  .testimonial-card {
+    padding: 15px 12px !important;
+  }
+
+  .testimonial-author .ant-typography {
+    font-size: 0.8rem !important;
+  }
+
+  /* Further simplify animations */
+  .testimonial-card::before {
+    height: 3px !important;
+  }
+
+  /* Hide all particles on very small screens */
+  .testimonials-particle {
+    display: none !important;
+  }
+}
+
+/* Performance optimizations for all mobile devices */
+@media (max-width: 992px) {
+  /* Use will-change sparingly */
+  .testimonial-card {
+    will-change: transform;
+  }
+
+  /* Simplify hover effects */
+  .testimonial-card:hover {
+    transform: translateY(-5px) !important;
+  }
+
+  /* Use hardware-accelerated properties */
+  .testimonial-card::before {
+    transform: none !important;
+  }
+
+  /* Add touch feedback */
+  .testimonial-card:active {
+    transform: scale(0.98) !important;
+  }
+}

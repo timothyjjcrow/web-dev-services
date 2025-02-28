@@ -328,3 +328,111 @@
     font-size: 20px;
   }
 }
+/* Enhanced mobile navigation */
+@media (max-width: 768px) {
+  /* Improve mobile hamburger menu visibility and tap target */
+  .mobile-menu-button {
+    padding: 10px !important;
+    height: auto !important;
+    font-size: 24px !important;
+    width: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  /* Add active state visual feedback */
+  .mobile-menu-button:active {
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  /* Improve header height on mobile */
+  .site-header {
+    height: 70px !important;
+  }
+
+  /* Increase tap targets in mobile drawer */
+  .mobile-nav-links li a {
+    padding: 16px 24px !important;
+    font-size: 18px !important;
+  }
+
+  /* Add active state for better touch feedback */
+  .mobile-nav-links li a:active {
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  /* Make mobile contact button more prominent */
+  .mobile-contact-button {
+    padding: 0 !important;
+    height: 50px !important;
+    font-size: 16px !important;
+  }
+
+  /* Improve tap targets for drawer close button */
+  .ant-drawer-close {
+    padding: 12px !important;
+    font-size: 18px !important;
+  }
+
+  /* Better drawer title */
+  .ant-drawer-title {
+    font-size: 20px !important;
+  }
+
+  /* More comfortable spacing in mobile navigation */
+  .mobile-nav-links {
+    padding: 15px 0 !important;
+  }
+
+  .mobile-nav-button {
+    margin-top: 15px !important;
+  }
+
+  /* If any active link indicator is used, make it more visible */
+  .mobile-nav-links li.active a:before {
+    width: 5px !important; /* Slightly wider for better visibility */
+  }
+
+  /* Optimize logo for mobile */
+  .logo {
+    height: 70px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .logo-text {
+    font-size: 20px !important;
+  }
+}
+
+/* Fix for very small screens */
+@media (max-width: 350px) {
+  .logo-text {
+    font-size: 18px !important;
+  }
+
+  .header-container {
+    padding: 0 10px !important;
+  }
+
+  /* Smaller drawer on very small screens */
+  .mobile-menu-drawer .ant-drawer-content-wrapper {
+    width: 260px !important; /* Make drawer slightly narrower on tiny screens */
+  }
+}
+
+/* Add tap highlight color for iOS devices */
+.mobile-menu-button,
+.mobile-nav-links li a,
+.mobile-contact-button {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Fix iOS bottom bar issues */
+@supports (-webkit-touch-callout: none) {
+  .mobile-menu-drawer .ant-drawer-body {
+    padding-bottom: env(safe-area-inset-bottom, 30px) !important;
+  }
+}
