@@ -13,7 +13,7 @@ import Hero from "./components/Hero/Hero";
 import Statistics from "./components/Statistics/Statistics";
 import Services from "./components/Services/Services";
 import About from "./components/About/About";
-import FlatEarth from "./components/FlatEarth/FlatEarth";
+
 import Testimonials from "./components/Testimonials/Testimonials";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
