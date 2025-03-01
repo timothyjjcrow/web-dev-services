@@ -2,219 +2,217 @@
 .hero-section {
   position: relative;
   min-height: 100vh;
-  background: linear-gradient(125deg, #080816 0%, #111133 60%, #1a1a47 100%);
+  min-height: calc(var(--vh, 1vh) * 100);
+  background: linear-gradient(125deg, #0b1021 0%, #111133 100%);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  margin-top: 70px; /* Adjust based on your header height */
+  margin-top: 80px; /* Match header height */
 }
 
+/* Container sizing */
 .hero-container {
   position: relative;
-  z-index: 10;
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 80px 50px;
+  padding: 0 40px;
+  z-index: 10;
 }
 
-/* Shape decorations */
-.hero-shape-container {
+.hero-row {
+  min-height: 500px;
+}
+
+/* Background elements */
+.hero-background {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    125deg,
+    rgba(11, 16, 33, 0.95) 0%,
+    rgba(17, 17, 51, 0.9) 100%
+  );
+  z-index: 2;
+}
+
+/* Grid pattern */
+.hero-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: 2;
+}
+
+/* Animated background circles */
+.hero-circles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.15;
+}
+
+.circle-1 {
+  top: 10%;
+  right: 10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle,
+    rgba(25, 118, 210, 0.5) 0%,
+    rgba(39, 33, 107, 0.3) 100%
+  );
+  animation: pulse-slow 14s infinite alternate;
+}
+
+.circle-2 {
+  bottom: 10%;
+  left: 5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(
+    circle,
+    rgba(103, 58, 183, 0.5) 0%,
+    rgba(39, 33, 107, 0.3) 100%
+  );
+  animation: pulse-slow 12s infinite alternate 1s;
+}
+
+.circle-3 {
+  top: 30%;
+  left: 25%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(0, 188, 212, 0.5) 0%,
+    rgba(39, 33, 107, 0.3) 100%
+  );
+  animation: pulse-slow 10s infinite alternate 2s;
+}
+
+@keyframes pulse-slow {
+  0% {
+    transform: scale(1);
+    opacity: 0.15;
+  }
+  100% {
+    transform: scale(1.05);
+    opacity: 0.2;
+  }
+}
+
+/* Animated particles */
+.hero-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
   pointer-events: none;
 }
 
-.hero-shape {
+.hero-particle {
   position: absolute;
   border-radius: 50%;
-  opacity: 0.5;
-  filter: blur(50px);
-  transition: transform 0.3s ease-out;
-}
-
-.shape-1 {
-  top: 20%;
-  right: -5%;
-  width: 50vw;
-  height: 50vw;
   background: linear-gradient(
     135deg,
-    rgba(67, 97, 238, 0.4) 10%,
-    rgba(95, 46, 234, 0.1) 100%
+    rgba(255, 255, 255, 0.7),
+    rgba(66, 165, 245, 0.7)
   );
-  animation: pulse-slow 8s infinite alternate;
+  box-shadow: 0 0 10px 2px rgba(100, 181, 246, 0.3);
+  animation: float-hero-particle linear infinite;
+  z-index: 3;
 }
 
-.shape-2 {
-  top: 60%;
-  left: -5%;
-  width: 30vw;
-  height: 30vw;
-  background: linear-gradient(
-    135deg,
-    rgba(25, 245, 222, 0.3) 0%,
-    rgba(21, 216, 234, 0.1) 100%
-  );
-  animation: pulse-slow 10s infinite alternate 1s;
-}
-
-.shape-3 {
-  bottom: 10%;
-  right: 15%;
-  width: 25vw;
-  height: 25vw;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 53, 127, 0.3) 0%,
-    rgba(152, 38, 252, 0.1) 100%
-  );
-  animation: pulse-slow 7s infinite alternate 2s;
-}
-
-.shape-4 {
-  top: 40%;
-  left: 30%;
-  width: 20vw;
-  height: 20vw;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 215, 84, 0.2) 0%,
-    rgba(255, 117, 11, 0.1) 100%
-  );
-  animation: pulse-slow 12s infinite alternate 3s;
-}
-
-/* Code lines animation */
-.code-lines {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  opacity: 0.4;
-}
-
-.code-line {
-  position: absolute;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(103, 232, 249, 0.6),
-    transparent
-  );
-  transform-origin: left;
-  transform: translateY(100vh) translateZ(0);
-  animation: code-line-anim 6s ease-in infinite;
-}
-
-@keyframes code-line-anim {
+@keyframes float-hero-particle {
   0% {
-    transform: translateY(100vh) translateZ(0) scaleX(0);
+    transform: translateY(100vh) translateX(0) scale(0.5);
     opacity: 0;
   }
   10% {
-    opacity: 1;
-    transform: translateY(90vh) translateZ(0) scaleX(1);
+    opacity: 0.7;
+    transform: translateY(90vh) translateX(5px) scale(0.8);
   }
   90% {
-    opacity: 1;
-    transform: translateY(10vh) translateZ(0) scaleX(1);
+    opacity: 0.7;
+    transform: translateY(10vh) translateX(15px) scale(0.8);
   }
   100% {
-    transform: translateY(0) translateZ(0) scaleX(0);
-    opacity: 0;
-  }
-}
-
-/* Floating particles */
-.floating-particles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.particle {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 0 10px 2px rgba(103, 232, 249, 0.6);
-  transform: translateY(100vh) translateZ(0);
-  animation: float-particle linear infinite;
-}
-
-@keyframes float-particle {
-  0% {
-    transform: translateY(100vh) translateZ(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-20vh) translateZ(0);
+    transform: translateY(0) translateX(20px) scale(0.5);
     opacity: 0;
   }
 }
 
 /* Content styling */
 .hero-content-col {
-  position: relative;
-  z-index: 2;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  z-index: 5;
 }
 
 .hero-content {
-  max-width: 650px;
+  max-width: 600px;
   padding: 40px 0;
 }
 
-.hero-tag {
+.hero-badge {
   display: inline-flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(66, 165, 245, 0.1);
   backdrop-filter: blur(5px);
-  padding: 8px 14px;
-  border-radius: 50px;
+  padding: 8px 16px;
+  border-radius: 100px;
   margin-bottom: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
   font-size: 14px;
-}
-
-.hero-tag-icon {
-  margin-right: 8px;
-  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(66, 165, 245, 0.2);
 }
 
 .hero-title {
   font-size: 4rem !important;
-  font-weight: 700 !important;
+  font-weight: 800 !important;
   line-height: 1.2 !important;
   margin-bottom: 24px !important;
   color: white !important;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.02em;
 }
 
 .hero-title .highlight {
-  background: linear-gradient(90deg, #00f5a0, #00d9f5);
+  background: linear-gradient(90deg, #90caf9, #42a5f5);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -232,8 +230,8 @@
   height: 8px;
   background: linear-gradient(
     90deg,
-    rgba(0, 245, 160, 0.2),
-    rgba(0, 217, 245, 0.2)
+    rgba(144, 202, 249, 0.2),
+    rgba(66, 165, 245, 0.2)
   );
   z-index: -1;
   border-radius: 4px;
@@ -247,7 +245,7 @@
   max-width: 90%;
 }
 
-/* Buttons styling */
+/* Button styling */
 .hero-buttons {
   display: flex;
   gap: 16px;
@@ -255,96 +253,77 @@
 }
 
 .hero-button {
-  height: 50px !important;
-  padding: 0 24px !important;
+  height: 52px !important;
+  padding: 0 28px !important;
   border-radius: 8px !important;
-  font-weight: 500 !important;
+  font-weight: 600 !important;
   font-size: 16px !important;
   display: flex !important;
   align-items: center !important;
-  border: none !important;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
+  gap: 8px !important;
   transition: all 0.3s ease !important;
 }
 
 .hero-button.primary {
-  background: linear-gradient(90deg, #00f5a0, #00d9f5) !important;
-  color: #111133 !important;
+  background: linear-gradient(90deg, #42a5f5, #2196f3) !important;
+  color: white !important;
+  border: none !important;
+  box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3) !important;
 }
 
 .hero-button.primary:hover {
-  background: linear-gradient(90deg, #00d9f5, #00f5a0) !important;
-  box-shadow: 0 10px 25px rgba(0, 245, 160, 0.3) !important;
+  box-shadow: 0 12px 28px rgba(33, 150, 243, 0.4) !important;
+  transform: translateY(-3px);
 }
 
 .hero-button.secondary {
-  background: rgba(255, 255, 255, 0.1) !important;
-  backdrop-filter: blur(10px) !important;
-  color: white !important;
+  background: rgba(255, 255, 255, 0.08) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
 }
 
 .hero-button.secondary:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border-color: rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  transform: translateY(-3px);
 }
 
-.hero-button .anticon {
-  margin-right: 8px;
-}
-
-/* Tech icons section */
-.hero-tech-icons {
-  margin-top: 16px;
-}
-
-.tech-icons-label {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 12px;
-}
-
-.tech-icons-container {
+/* Tech tags */
+.hero-tech-tags {
   display: flex;
-  gap: 20px;
   flex-wrap: wrap;
+  gap: 12px;
 }
 
-.tech-icon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(5px);
+.tech-tag {
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 12px;
-  width: 90px;
-  height: 90px;
+  border-radius: 100px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
   transition: all 0.3s ease;
 }
 
-.tech-icon:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-5px);
+.tech-tag:hover {
+  background: rgba(33, 150, 243, 0.1);
+  border-color: rgba(33, 150, 243, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
 }
 
-.tech-icon .anticon {
-  font-size: 28px;
-  color: #00d9f5;
-  margin-bottom: 8px;
-}
-
-.tech-icon span {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
-}
-
-/* Hero image/illustration */
+/* Image section styling */
 .hero-image-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
+  z-index: 5;
+}
+
+.hero-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -353,203 +332,204 @@
 .hero-image-container {
   position: relative;
   width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
-
-.hero-image {
-  position: relative;
-  width: 100%;
   max-width: 600px;
-  height: 500px;
+  aspect-ratio: 4/3;
 }
 
-/* Device illustrations */
-.hero-device {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.05);
+/* Code editor UI */
+.hero-image-screen {
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 50, 0.8);
   backdrop-filter: blur(10px);
+  border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
   overflow: hidden;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-}
-
-.laptop {
-  width: 70%;
-  height: 50%;
-  top: 20%;
-  left: 15%;
+  position: relative;
   z-index: 3;
-  animation: float 5s ease-in-out infinite alternate;
 }
 
-.phone {
-  width: 20%;
-  height: 40%;
-  bottom: 15%;
-  right: 10%;
-  z-index: 2;
-  animation: float 4s ease-in-out infinite alternate-reverse 1s;
+.hero-code-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.tablet {
-  width: 35%;
-  height: 45%;
-  top: 10%;
-  right: 5%;
-  z-index: 1;
-  animation: float 6s ease-in-out infinite alternate 2s;
+.code-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.code-buttons {
+  display: flex;
+  gap: 8px;
+  margin-right: 16px;
+}
+
+.code-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: block;
+}
+
+.code-button:nth-child(1) {
+  background: #ff5f56;
+}
+
+.code-button:nth-child(2) {
+  background: #ffbd2e;
+}
+
+.code-button:nth-child(3) {
+  background: #27c93f;
+}
+
+.code-title {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: monospace;
+}
+
+.code-editor {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.code-line {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 4px;
+}
+
+.code-keyword {
+  color: #f48fb1;
+}
+
+.code-string {
+  color: #81c784;
+}
+
+.code-function {
+  color: #64b5f6;
+}
+
+.code-tag {
+  color: #7986cb;
+}
+
+/* Devices */
+.devices {
+  position: absolute;
+  bottom: -15%;
+  right: -10%;
+  z-index: 4;
+}
+
+.device {
+  position: absolute;
+  background: #111;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
 }
 
 .device-screen {
   position: relative;
-  width: 90%;
-  height: 80%;
-  margin: 5% auto;
-  background: linear-gradient(125deg, #080816 0%, #111133 60%, #1a1a47 100%);
+  background: rgba(30, 30, 50, 0.9);
   border-radius: 4px;
   overflow: hidden;
 }
 
-.screen-content {
-  position: relative;
+.tablet {
+  width: 180px;
+  height: 240px;
+  padding: 12px;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2;
+}
+
+.tablet .device-screen {
   width: 100%;
   height: 100%;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
-.content-item {
-  height: 10px;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 245, 160, 0.3),
-    rgba(0, 217, 245, 0.3)
-  );
-  border-radius: 3px;
-  animation: pulse 3s infinite alternate;
+.phone {
+  width: 80px;
+  height: 160px;
+  padding: 8px;
+  right: 180px;
+  bottom: 40px;
+  z-index: 1;
 }
 
-.content-item:nth-child(2) {
-  width: 70%;
-  animation-delay: 0.5s;
-}
-
-.content-item:nth-child(3) {
-  width: 40%;
-  animation-delay: 1s;
-}
-
-/* Orbit animation */
-.hero-orbit {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%;
-  height: 80%;
-  border: 2px dashed rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  animation: spin 20s linear infinite;
-}
-
-.orbit-circle {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 30px;
-  height: 30px;
-  background: radial-gradient(
-    circle,
-    rgba(0, 217, 245, 0.8) 0%,
-    rgba(0, 245, 160, 0.3) 70%,
-    transparent 100%
-  );
-  border-radius: 50%;
-  box-shadow: 0 0 20px rgba(0, 217, 245, 0.6);
-  animation: orbit-pulse 3s infinite alternate;
+.phone .device-screen {
+  width: 100%;
+  height: 100%;
 }
 
 /* Wave separator */
-.hero-bottom-wave {
+.hero-wave {
   position: absolute;
-  bottom: -1px;
+  bottom: -2px;
   left: 0;
   width: 100%;
   overflow: hidden;
   line-height: 0;
-  z-index: 2;
+  z-index: 5;
 }
 
-/* Animations */
-@keyframes pulse-slow {
-  0% {
-    transform: scale(1);
-    opacity: 0.5;
-  }
-  100% {
-    transform: scale(1.05);
-    opacity: 0.8;
-  }
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-15px);
-  }
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 0.8;
-  }
-}
-
-@keyframes spin {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-@keyframes orbit-pulse {
-  0% {
-    transform: translateX(-50%) scale(0.8);
-    box-shadow: 0 0 20px rgba(0, 217, 245, 0.6);
-  }
-  100% {
-    transform: translateX(-50%) scale(1.2);
-    box-shadow: 0 0 30px rgba(0, 217, 245, 0.8);
-  }
+.hero-wave svg {
+  display: block;
+  width: 100%;
+  height: 80px;
 }
 
 /* Responsive styles */
 @media (max-width: 1200px) {
+  .hero-container {
+    padding: 0 30px;
+  }
+
   .hero-title {
     font-size: 3.5rem !important;
   }
 
-  .hero-device.laptop {
-    width: 75%;
+  .hero-description {
+    font-size: 1.2rem !important;
+  }
+
+  .devices {
+    bottom: -10%;
+    right: -5%;
+  }
+
+  .tablet {
+    width: 160px;
+    height: 200px;
+  }
+
+  .phone {
+    width: 70px;
+    height: 140px;
+    right: 150px;
   }
 }
 
 @media (max-width: 992px) {
+  .hero-container {
+    padding: 0 20px;
+  }
+
   .hero-title {
     font-size: 3rem !important;
   }
@@ -558,441 +538,240 @@
     font-size: 1.1rem !important;
   }
 
-  .hero-container {
-    padding: 60px 40px;
+  .hero-button {
+    height: 50px !important;
+    padding: 0 24px !important;
   }
 
-  .hero-tech-icons {
-    margin-bottom: 40px;
+  .devices {
+    right: 0;
   }
 
-  .hero-image {
-    height: 400px;
+  .tablet {
+    width: 140px;
+    height: 180px;
+  }
+
+  .phone {
+    width: 60px;
+    height: 120px;
+    right: 130px;
   }
 }
 
 @media (max-width: 768px) {
   .hero-section {
-    min-height: unset;
-    padding: 100px 0 150px;
+    min-height: auto;
+    padding: 80px 0;
+    margin-top: 70px; /* Adjust for mobile header height */
   }
 
-  .hero-container {
-    padding: 40px 20px;
+  .hero-content-col,
+  .hero-image-col {
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 100%;
+    padding: 20px 0 40px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    margin: 0 auto 20px;
   }
 
   .hero-title {
     font-size: 2.5rem !important;
   }
 
-  .hero-image-col {
-    margin-top: 40px;
-  }
-
-  .hero-image {
-    height: 350px;
+  .hero-description {
+    font-size: 1rem !important;
+    margin: 0 auto 30px !important;
+    max-width: 100%;
   }
 
   .hero-buttons {
-    flex-direction: column;
-    width: 100%;
+    justify-content: center;
+    margin-bottom: 30px;
   }
 
-  .tech-icons-container {
+  .hero-tech-tags {
     justify-content: center;
   }
 
-  .tech-icon {
-    width: 80px;
-    height: 80px;
+  .hero-image-wrapper {
+    margin-top: 30px;
+  }
+
+  .hero-image-container {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .devices {
+    bottom: -5%;
+    right: 5%;
+  }
+
+  .tablet {
+    width: 120px;
+    height: 160px;
+  }
+
+  .phone {
+    width: 50px;
+    height: 100px;
+    right: 110px;
+  }
+
+  .hero-wave svg {
+    height: 60px;
   }
 }
 
 @media (max-width: 576px) {
   .hero-section {
-    padding: 80px 0 150px;
+    padding: 60px 0;
   }
 
   .hero-container {
-    padding: 20px 15px;
+    padding: 0 15px;
   }
 
   .hero-title {
     font-size: 2rem !important;
-  }
-
-  .hero-description {
-    font-size: 1rem !important;
-  }
-
-  .hero-image {
-    height: 280px;
-  }
-
-  .tech-icon {
-    width: 70px;
-    height: 70px;
-    padding: 10px;
-  }
-}
-/* Additional mobile optimizations for Hero section */
-@media (max-width: 768px) {
-  .hero-section {
-    min-height: unset;
-    padding: 100px 0 150px;
-    height: auto; /* Proper height handling on mobile */
-  }
-
-  .hero-container {
-    padding: 30px 15px;
-  }
-
-  .hero-title {
-    font-size: 2.2rem !important;
-    line-height: 1.3 !important;
-  }
-
-  .hero-description {
-    font-size: 1rem !important;
-    line-height: 1.6 !important;
-    max-width: 100% !important; /* Better text wrapping on mobile */
-  }
-
-  /* Make buttons more touch-friendly */
-  .hero-buttons {
-    flex-direction: column;
-    width: 100%;
-    gap: 15px;
-  }
-
-  .hero-button {
-    width: 100% !important;
-    justify-content: center !important;
-    height: 48px !important;
-  }
-
-  /* Better tech icons layout on mobile */
-  .tech-icons-container {
-    justify-content: center;
-    gap: 12px;
-  }
-
-  .tech-icon {
-    width: 75px;
-    height: 75px;
-  }
-
-  /* Optimize image layout on mobile */
-  .hero-image {
-    height: 320px; /* Shorter on mobile */
-  }
-
-  /* Reduce animation complexity on mobile */
-  .hero-shape-container .hero-shape {
-    opacity: 0.3; /* More subtle background on mobile */
-    filter: blur(30px); /* Less detailed blur for performance */
-  }
-
-  /* Fewer particles on mobile */
-  .particle {
-    display: none; /* Hide most particles */
-  }
-
-  .particle:nth-child(3n) {
-    display: block; /* Show only every third particle */
-  }
-
-  /* Improve device illustrations for mobile */
-  .laptop {
-    width: 65% !important;
-    height: 45% !important;
-    animation: float 3s ease-in-out infinite alternate !important; /* Simpler animation */
-  }
-
-  .phone {
-    width: 22% !important;
-    height: 38% !important;
-    animation: float 3s ease-in-out infinite alternate-reverse !important;
-  }
-
-  .tablet {
-    width: 32% !important;
-    height: 40% !important;
-    animation: float 3s ease-in-out infinite alternate !important;
-  }
-}
-
-/* Additional optimizations for smaller devices */
-@media (max-width: 480px) {
-  .hero-title {
-    font-size: 1.8rem !important;
-    word-wrap: break-word !important;
-    margin-bottom: 18px !important;
   }
 
   .hero-description {
     font-size: 0.95rem !important;
-    line-height: 1.5 !important;
-    margin-bottom: 30px !important;
   }
 
-  .hero-tag {
-    padding: 6px 10px !important;
-    font-size: 12px !important;
-    margin-bottom: 18px !important;
+  .hero-buttons {
+    flex-direction: column;
+    gap: 12px;
   }
 
   .hero-button {
-    height: 45px !important;
+    width: 100%;
+    height: 48px !important;
+    padding: 0 20px !important;
     font-size: 15px !important;
-    padding: 0 16px !important;
   }
 
-  .tech-icon {
-    width: 65px !important;
-    height: 65px !important;
-    padding: 8px !important;
+  .tech-tag {
+    padding: 6px 12px;
+    font-size: 12px;
   }
 
-  .tech-icon .anticon {
-    font-size: 22px !important;
+  .hero-image-container {
+    width: 100%;
   }
 
-  .tech-icon span {
-    font-size: 11px !important;
+  .code-editor {
+    font-size: 12px;
+    padding: 12px;
   }
 
-  /* Simplify animation backgrounds on small mobile */
-  .shape-1,
-  .shape-2,
-  .shape-3,
-  .shape-4 {
-    opacity: 0.3 !important; /* Reduce opacity for better text contrast */
+  .devices {
+    right: 0;
   }
 
-  .hero-container {
-    padding: 20px 12px !important;
+  .tablet {
+    width: 100px;
+    height: 140px;
+    right: 10px;
   }
 
-  /* Better spacing for tech icons */
-  .tech-icons-container {
-    gap: 10px !important;
+  .phone {
+    width: 45px;
+    height: 90px;
+    right: 100px;
   }
 
-  /* Smaller orbit animation */
-  .hero-orbit {
-    width: 70% !important;
-    height: 70% !important;
-  }
-
-  /* Hide content items on small screens to simplify */
-  .content-item:nth-child(3) {
-    display: none !important;
+  .hero-wave svg {
+    height: 40px;
   }
 }
 
-/* Fix for very small devices like iPhone SE */
-@media (max-width: 350px) {
+@media (max-width: 375px) {
+  .hero-section {
+    padding: 50px 0;
+  }
+
   .hero-title {
-    font-size: 1.6rem !important;
+    font-size: 1.8rem !important;
   }
 
-  .hero-tag-icon {
-    font-size: 16px !important;
+  .hero-badge {
+    font-size: 12px;
+    padding: 6px 12px;
   }
 
-  .tech-icon {
-    width: 60px !important;
-    height: 60px !important;
+  .hero-tech-tags {
+    gap: 8px;
   }
 
-  .tech-icons-label {
-    font-size: 13px !important;
+  .tech-tag {
+    padding: 5px 10px;
+    font-size: 11px;
   }
 
-  /* Even smaller orbit */
-  .hero-orbit {
-    display: none !important; /* Hide on very small screens */
-  }
-}
-
-/* Optimize animations for better performance */
-@media (max-width: 768px) {
-  @keyframes float {
-    0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translateY(-8px); /* Less movement on mobile */
-    }
+  .tablet {
+    width: 80px;
+    height: 120px;
   }
 
-  @keyframes pulse {
-    0% {
-      opacity: 0.4;
-    }
-    100% {
-      opacity: 0.7;
-    }
-  }
-
-  @keyframes spin {
-    from {
-      transform: translate(-50%, -50%) rotate(0deg);
-    }
-    to {
-      transform: translate(-50%, -50%) rotate(180deg); /* Less rotation on mobile */
-    }
-  }
-
-  /* Reduce complexity of code-line animation */
-  @keyframes code-line-anim {
-    0% {
-      transform: translateY(100vh) translateZ(0);
-      opacity: 0;
-    }
-    15% {
-      opacity: 0.5;
-    }
-    85% {
-      opacity: 0.5;
-    }
-    100% {
-      transform: translateY(0) translateZ(0);
-      opacity: 0;
-    }
+  .phone {
+    width: 40px;
+    height: 80px;
+    right: 80px;
   }
 }
 
-/* Fix iOS 100vh issue */
+/* iOS-specific fix for 100vh issue */
 @supports (-webkit-touch-callout: none) {
   .hero-section {
-    height: 100vh; /* Fallback */
-    height: -webkit-fill-available; /* iOS-specific fix */
+    height: -webkit-fill-available;
     min-height: -webkit-fill-available;
   }
 }
-/* src/components/Hero/Hero.css */
-.hero-section {
-  position: relative;
-  min-height: 100vh; /* Fallback */
-  min-height: calc(
-    var(--vh, 1vh) * 100
-  ); /* Use the CSS variable set in App.js */
-  background: linear-gradient(125deg, #080816 0%, #111133 60%, #1a1a47 100%);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  margin-top: 80px; /* Match header height */
-}
 
-/* Keep existing styles but modify the responsive ones */
-
-/* Responsive styles */
-@media (max-width: 1200px) {
-  /* Keep existing styles */
-}
-
-@media (max-width: 992px) {
-  /* Keep existing styles */
-}
-
+/* Performance optimizations for mobile */
 @media (max-width: 768px) {
-  .hero-section {
-    padding: 80px 0 100px; /* Proper padding for mobile */
-    margin-top: 70px; /* Adjust to mobile header height */
-    min-height: calc(
-      var(--vh, 1vh) * 100 - 70px
-    ); /* Account for header height */
-    height: auto; /* Allow it to grow as needed */
+  /* Reduce particles for better performance */
+  .hero-particle:nth-child(odd) {
+    display: none;
   }
 
-  /* Other existing mobile styles */
-}
-
-@media (max-width: 576px) {
-  .hero-section {
-    padding: 60px 0 80px; /* Smaller padding for very small devices */
-  }
-  /* Other existing styles */
-}
-
-/* Fix iOS 100vh issue more comprehensively */
-@supports (-webkit-touch-callout: none) {
-  .hero-section {
-    min-height: -webkit-fill-available; /* iOS-specific fix */
-    height: calc(var(--vh, 1vh) * 100 - 70px); /* iOS with header adjustment */
-  }
-}
-
-/* Additional mobile optimizations - keep existing */
-/* Add these additional mobile fixes to the end of Hero.css */
-
-/* Extra mobile optimizations to fix display issues */
-@media (max-width: 768px) {
-  /* Better content layout */
-  .hero-content {
-    padding: 20px !important;
-    height: auto !important;
-    width: 100% !important;
-    max-width: 100% !important;
+  /* Simpler animations */
+  .circle-1,
+  .circle-2,
+  .circle-3 {
+    animation-duration: 20s;
+    filter: blur(40px);
   }
 
-  /* Fix buttons on mobile */
-  .hero-buttons {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    gap: 15px;
+  /* Disable backdrop-filter for better performance */
+  .hero-badge {
+    backdrop-filter: none;
   }
 
-  .hero-button {
-    width: 100%;
-    max-width: 300px;
-    justify-content: center !important;
-  }
-
-  /* Make sure content is visible */
-  .hero-title {
-    text-align: center;
-    font-size: 2rem !important;
-    line-height: 1.3 !important;
-  }
-
-  .hero-description {
-    text-align: center;
-    font-size: 1rem !important;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* Center tech icons */
-  .hero-tech-icons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* Fix header height dynamic calculation */
-  .hero-section {
-    margin-top: var(--header-height, 70px);
-  }
-}
-
-/* Very small devices */
-@media (max-width: 350px) {
-  .hero-title {
-    font-size: 1.7rem !important;
-  }
-
-  .hero-description {
-    font-size: 0.9rem !important;
-  }
-
-  .hero-tag {
-    font-size: 12px;
-    padding: 5px 10px;
+  /* Simplified animation for particles */
+  @keyframes float-hero-particle {
+    0% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.5;
+    }
+    90% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 0;
+    }
   }
 }

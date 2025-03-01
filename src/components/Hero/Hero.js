@@ -1,42 +1,30 @@
 // src/components/Hero/Hero.js
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Button, Row, Col } from "antd";
 import { Link } from "react-scroll";
 import { motion } from "framer-motion";
-import {
-  RocketOutlined,
-  ArrowRightOutlined,
-  CodeOutlined,
-  MobileOutlined,
-  ShopOutlined,
-  GlobalOutlined,
-} from "@ant-design/icons";
+import { RocketOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import "./Hero.css";
 
 const { Title, Paragraph } = Typography;
 
 const Hero = () => {
-  const heroRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Parallax effect on mouse move for the shapes
+  // Handle window resize to detect mobile
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (!heroRef.current) return;
-
-      const shapes = heroRef.current.querySelectorAll(".hero-shape");
-      const mouseX = e.clientX / window.innerWidth;
-      const mouseY = e.clientY / window.innerHeight;
-
-      shapes.forEach((shape, index) => {
-        // Different movement intensity for each shape
-        const offsetX = (mouseX - 0.5) * (index + 1) * 20;
-        const offsetY = (mouseY - 0.5) * (index + 1) * 20;
-        shape.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-      });
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    // Set initial value
+    handleResize();
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Clean up
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Animation variants
@@ -61,83 +49,73 @@ const Hero = () => {
     },
   };
 
-  const techIconVariants = {
-    hidden: { scale: 0, opacity: 0 },
-    visible: (i) => ({
-      scale: 1,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 260,
-        damping: 20,
-        delay: 0.8 + i * 0.1,
-      },
-    }),
-  };
-
   return (
-    <section className="hero-section" id="home" ref={heroRef}>
-      {/* Decorative shapes */}
-      <div className="hero-shape-container">
-        <div className="hero-shape shape-1"></div>
-        <div className="hero-shape shape-2"></div>
-        <div className="hero-shape shape-3"></div>
-        <div className="hero-shape shape-4"></div>
+    <section className="hero-section" id="home">
+      {/* Gradient overlay */}
+      <div className="hero-overlay"></div>
 
-        {/* Animated code lines */}
-        <div className="code-lines">
-          {[...Array(5)].map((_, i) => (
+      {/* Animated background elements */}
+      <div className="hero-background">
+        <div className="hero-circles">
+          <div className="hero-circle circle-1"></div>
+          <div className="hero-circle circle-2"></div>
+          <div className="hero-circle circle-3"></div>
+        </div>
+
+        <div className="hero-grid"></div>
+
+        {/* Animated particles for visual interest */}
+        <div className="hero-particles">
+          {[...Array(isMobile ? 8 : 15)].map((_, index) => (
             <div
-              key={i}
-              className="code-line"
+              key={index}
+              className="hero-particle"
               style={{
-                width: `${Math.random() * 40 + 30}%`,
-                animationDelay: `${i * 0.3}s`,
-                left: `${Math.random() * 40}%`,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                width: `${2 + Math.random() * 4}px`,
+                height: `${2 + Math.random() * 4}px`,
+                animationDelay: `${Math.random() * 3}s`,
+                animationDuration: `${5 + Math.random() * 10}s`,
               }}
             ></div>
           ))}
         </div>
       </div>
 
-      <Row className="hero-container">
-        <Col xs={24} md={14} lg={12} className="hero-content-col">
-          <motion.div
-            className="hero-content"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <motion.div variants={itemVariants} className="hero-tag">
-              <span className="hero-tag-icon">⚡</span>
-              <span>Modern Web Development Solutions</span>
-            </motion.div>
+      <div className="hero-container">
+        <Row align="middle" className="hero-row">
+          <Col xs={24} md={12} className="hero-content-col">
+            <motion.div
+              className="hero-content"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <motion.div variants={itemVariants} className="hero-badge">
+                <span>Web Development Solutions</span>
+              </motion.div>
 
-            <motion.div variants={itemVariants}>
-              <Title className="hero-title">
-                Transform Your <span className="highlight">Digital</span>{" "}
-                Presence
-              </Title>
-            </motion.div>
+              <motion.div variants={itemVariants}>
+                <Title className="hero-title">
+                  Transform Your <span className="highlight">Digital</span>{" "}
+                  Presence
+                </Title>
+              </motion.div>
 
-            <motion.div variants={itemVariants}>
-              <Paragraph className="hero-description">
-                We craft exceptional web experiences that blend stunning design
-                with cutting-edge technology to help your business stand out in
-                the digital landscape.
-              </Paragraph>
-            </motion.div>
+              <motion.div variants={itemVariants}>
+                <Paragraph className="hero-description">
+                  We build exceptional web experiences that combine stunning
+                  design with cutting-edge technology to help your business
+                  stand out in the digital landscape.
+                </Paragraph>
+              </motion.div>
 
-            <motion.div className="hero-buttons" variants={itemVariants}>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-              >
+              <motion.div className="hero-buttons" variants={itemVariants}>
                 <Button
                   type="primary"
-                  size="large"
-                  icon={<RocketOutlined />}
                   className="hero-button primary"
+                  icon={<RocketOutlined />}
                 >
                   <Link
                     to="contact"
@@ -149,14 +127,8 @@ const Hero = () => {
                     Start Your Project
                   </Link>
                 </Button>
-              </motion.div>
 
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-              >
                 <Button
-                  size="large"
                   className="hero-button secondary"
                   icon={<ArrowRightOutlined />}
                 >
@@ -167,103 +139,115 @@ const Hero = () => {
                     offset={-70}
                     duration={500}
                   >
-                    Explore Services
+                    Our Services
                   </Link>
                 </Button>
               </motion.div>
+
+              {/* Tech tags */}
+              <motion.div className="hero-tech-tags" variants={itemVariants}>
+                <div className="tech-tag">React</div>
+                <div className="tech-tag">Vue</div>
+                <div className="tech-tag">Node.js</div>
+                <div className="tech-tag">Shopify</div>
+                <div className="tech-tag">WordPress</div>
+              </motion.div>
             </motion.div>
+          </Col>
 
-            <motion.div className="hero-tech-icons" variants={itemVariants}>
-              <div className="tech-icons-label">Technologies we master:</div>
-              <div className="tech-icons-container">
-                {[
-                  { icon: <CodeOutlined />, label: "React" },
-                  { icon: <MobileOutlined />, label: "Responsive" },
-                  { icon: <ShopOutlined />, label: "payment" },
-                  { icon: <GlobalOutlined />, label: "Web Apps" },
-                ].map((tech, i) => (
-                  <motion.div
-                    className="tech-icon"
-                    key={i}
-                    custom={i}
-                    variants={techIconVariants}
-                  >
-                    {tech.icon}
-                    <span>{tech.label}</span>
-                  </motion.div>
-                ))}
+          <Col xs={24} md={12} className="hero-image-col">
+            <motion.div
+              className="hero-image-wrapper"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            >
+              <div className="hero-image-container">
+                <div className="hero-image-screen">
+                  <div className="hero-code-container">
+                    {/* UI elements: Code window mockup */}
+                    <div className="code-header">
+                      <div className="code-buttons">
+                        <span className="code-button"></span>
+                        <span className="code-button"></span>
+                        <span className="code-button"></span>
+                      </div>
+                      <div className="code-title">index.js</div>
+                    </div>
+                    <div className="code-editor">
+                      <div className="code-line">
+                        <span className="code-keyword">import</span> React{" "}
+                        <span className="code-keyword">from</span>{" "}
+                        <span className="code-string">'react'</span>;
+                      </div>
+                      <div className="code-line">
+                        <span className="code-keyword">import</span>{" "}
+                        <span className="code-string">'./App.css'</span>;
+                      </div>
+                      <div className="code-line"></div>
+                      <div className="code-line">
+                        <span className="code-keyword">function</span>{" "}
+                        <span className="code-function">App</span>() {`{`}
+                      </div>
+                      <div className="code-line">
+                        {" "}
+                        <span className="code-keyword">return</span> (
+                      </div>
+                      <div className="code-line">
+                        {" "}
+                        <span className="code-tag">{`<div className="app">`}</span>
+                      </div>
+                      <div className="code-line">
+                        {" "}
+                        <span className="code-tag">{`<header>`}</span>
+                      </div>
+                      <div className="code-line">
+                        {" "}
+                        <span className="code-tag">{`<h1>`}</span>Welcome
+                        <span className="code-tag">{`</h1>`}</span>
+                      </div>
+                      <div className="code-line">
+                        {" "}
+                        <span className="code-tag">{`</header>`}</span>
+                      </div>
+                      <div className="code-line">
+                        {" "}
+                        <span className="code-tag">{`</div>`}</span>
+                      </div>
+                      <div className="code-line"> );</div>
+                      <div className="code-line">{`}`}</div>
+                      <div className="code-line"></div>
+                      <div className="code-line">
+                        <span className="code-keyword">export default</span>{" "}
+                        App;
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="devices">
+                  <div className="device tablet">
+                    <div className="device-screen"></div>
+                  </div>
+                  <div className="device phone">
+                    <div className="device-screen"></div>
+                  </div>
+                </div>
               </div>
             </motion.div>
-          </motion.div>
-        </Col>
+          </Col>
+        </Row>
+      </div>
 
-        <Col xs={24} md={10} lg={12} className="hero-image-col">
-          <motion.div
-            className="hero-image-container"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <div className="hero-image">
-              <div className="hero-device laptop">
-                <div className="device-screen">
-                  <div className="screen-content">
-                    <div className="content-item"></div>
-                    <div className="content-item"></div>
-                    <div className="content-item"></div>
-                  </div>
-                </div>
-              </div>
-              <div className="hero-device phone">
-                <div className="device-screen">
-                  <div className="screen-content">
-                    <div className="content-item"></div>
-                    <div className="content-item"></div>
-                  </div>
-                </div>
-              </div>
-              <div className="hero-device tablet">
-                <div className="device-screen">
-                  <div className="screen-content">
-                    <div className="content-item"></div>
-                    <div className="content-item"></div>
-                    <div className="content-item"></div>
-                  </div>
-                </div>
-              </div>
-              <div className="hero-orbit">
-                <div className="orbit-circle"></div>
-              </div>
-            </div>
-          </motion.div>
-        </Col>
-      </Row>
-
-      <div className="hero-bottom-wave">
+      {/* Wave separator */}
+      <div className="hero-wave">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
           <path
             fill="#000000"
             fillOpacity="1"
-            d="M0,288L48,277.3C96,267,192,245,288,229.3C384,213,480,203,576,213.3C672,224,768,256,864,261.3C960,267,1056,245,1152,208C1248,171,1344,117,1392,90.7L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+            d="M0,256L48,240C96,224,192,192,288,181.3C384,171,480,181,576,186.7C672,192,768,192,864,165.3C960,139,1056,85,1152,74.7C1248,64,1344,96,1392,112L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
           ></path>
         </svg>
-      </div>
-
-      <div className="floating-particles">
-        {[...Array(12)].map((_, i) => (
-          <div
-            key={i}
-            className="particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${8 + Math.random() * 7}s`,
-              width: `${Math.random() * 8 + 3}px`,
-              height: `${Math.random() * 8 + 3}px`,
-            }}
-          ></div>
-        ))}
       </div>
     </section>
   );

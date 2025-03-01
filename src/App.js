@@ -13,7 +13,7 @@ import Hero from "./components/Hero/Hero";
 import Statistics from "./components/Statistics/Statistics";
 import Services from "./components/Services/Services";
 import About from "./components/About/About";
-import Portfolio from "./components/Portfolio/Portfolio"; // Import the new Portfolio component
+import Portfolio from "./components/Portfolio/Portfolio";
 import Testimonials from "./components/Testimonials/Testimonials";
 import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
@@ -25,73 +25,31 @@ const App = () => {
   // State to track if we're on a mobile device
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-  // Initialize AOS animation library and handle mobile-specific setup
+  // Initialize AOS animation library and handle mobile setup
   useEffect(() => {
     // Configure AOS with more mobile-friendly settings
     AOS.init({
       duration: isMobile ? 600 : 800, // Shorter duration on mobile
-      once: false,
-      mirror: false, // No mirroring for cleaner animations
-      offset: isMobile ? 50 : 100, // Smaller offset on mobile
-      easing: "ease-out", // Smoother animation
-      disable: "phone", // Disable on mobile for better performance if needed
+      once: true, // Only animate once for better performance
+      mirror: false, // No mirroring
+      offset: isMobile ? 20 : 100, // Smaller offset on mobile
+      easing: "ease-out",
+      disable: "phone", // Disable on mobile for better performance
     });
     AOS.refresh();
 
-    // Fix for 100vh issue on mobile browsers (especially iOS)
-    const setVh = () => {
-      // This sets a CSS variable that represents 1% of the viewport height
-      // This fixes the 100vh issue on mobile browsers where the address bar takes up space
-      let vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty("--vh", `${vh}px`);
-    };
-
-    // Ensure the header height is correctly calculated for mobile
-    const updateHeaderHeight = () => {
-      const header = document.querySelector(".site-header");
-      if (header) {
-        const headerHeight = header.offsetHeight;
-        document.documentElement.style.setProperty(
-          "--header-height",
-          `${headerHeight}px`
-        );
-
-        // Also update root element with a custom property for the hero section
-        const heroSection = document.querySelector(".hero-section");
-        if (heroSection) {
-          heroSection.style.marginTop = `${headerHeight}px`;
-        }
-      }
-    };
-
-    // Call initial setup functions
-    setVh();
-
-    // Wait for DOM to be fully loaded before measuring header
-    setTimeout(updateHeaderHeight, 100);
-
-    // Handle resize for responsive design
+    // Simple mobile detection and handler
     const handleResize = () => {
-      setVh();
       setIsMobile(window.innerWidth <= 768);
-      updateHeaderHeight();
-
-      // Refresh AOS on resize to ensure animations work correctly
       AOS.refresh();
     };
 
     // Add event listener for resize
     window.addEventListener("resize", handleResize);
 
-    // Also update header height when orientation changes (important for mobile)
-    window.addEventListener("orientationchange", () => {
-      setTimeout(updateHeaderHeight, 100); // Wait for orientation change to complete
-    });
-
     // Clean up
     return () => {
       window.removeEventListener("resize", handleResize);
-      window.removeEventListener("orientationchange", updateHeaderHeight);
     };
   }, [isMobile]);
 
@@ -108,7 +66,7 @@ const App = () => {
         <Hero />
         <Statistics />
         <Services />
-        <Portfolio /> {/* Add the new Portfolio component here */}
+        <Portfolio />
         <InnovativeApproach />
         <About />
         <Testimonials />

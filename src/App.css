@@ -726,3 +726,109 @@ a:hover {
   letter-spacing: 0.01em !important; /* Slight improvement to character spacing */
   word-spacing: 0.05em !important; /* Slight improvement to word spacing */
 }
+/* Add to App.css - Simple fixes for mobile display */
+
+/* ===== HERO SECTION FIXES ===== */
+@media (max-width: 768px) {
+  /* Fix hero section on mobile with direct approach */
+  .hero-section {
+    height: auto !important; /* Allow natural height */
+    min-height: auto !important; /* Remove min-height constraints */
+    margin-top: 70px !important; /* Fixed margin for header height */
+    padding: 60px 20px 80px !important; /* Simple padding */
+    display: block !important; /* Simple display mode */
+  }
+
+  /* Fix hero content on mobile */
+  .hero-content {
+    height: auto !important;
+    padding: 20px 10px !important;
+  }
+
+  /* Fix hero title size */
+  .hero-title {
+    font-size: 2rem !important;
+    line-height: 1.3 !important;
+    text-align: center;
+  }
+
+  /* Center hero description */
+  .hero-description {
+    text-align: center;
+    margin: 0 auto 30px !important;
+    max-width: 100% !important;
+  }
+
+  /* Stack buttons on mobile */
+  .hero-buttons {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 15px !important;
+  }
+
+  /* Full width buttons for better touch */
+  .hero-button {
+    width: 100% !important;
+    max-width: 280px !important;
+    justify-content: center !important;
+  }
+
+  /* ===== STATISTICS SECTION FIXES ===== */
+  /* Fix statistics section positioning */
+  .statistics-section {
+    margin-top: 0 !important; /* Remove negative margin */
+    padding: 50px 15px !important; /* Simpler padding */
+    position: relative;
+  }
+
+  /* Force statistics cards to display properly */
+  .stat-card-col {
+    margin-bottom: 20px !important;
+  }
+
+  .statistic-card {
+    height: auto !important;
+    min-height: 180px !important;
+    padding: 20px 15px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Fix stat value display */
+  .stat-value {
+    font-size: 2.2rem !important;
+    margin-bottom: 10px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Display value container properly */
+  .stat-value-container {
+    min-height: auto !important;
+    margin-bottom: 5px !important;
+  }
+}
+
+/* Small mobile fixes */
+@media (max-width: 350px) {
+  .hero-title {
+    font-size: 1.6rem !important;
+  }
+
+  .hero-description {
+    font-size: 0.9rem !important;
+  }
+
+  .statistic-card {
+    padding: 15px 10px !important;
+  }
+
+  .stat-value {
+    font-size: 1.8rem !important;
+  }
+
+  .stat-label {
+    font-size: 0.8rem !important;
+  }
+}
