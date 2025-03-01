@@ -46,13 +46,35 @@ const App = () => {
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
 
-    // Call it initially
+    // Ensure the header height is correctly calculated for mobile
+    const updateHeaderHeight = () => {
+      const header = document.querySelector(".site-header");
+      if (header) {
+        const headerHeight = header.offsetHeight;
+        document.documentElement.style.setProperty(
+          "--header-height",
+          `${headerHeight}px`
+        );
+
+        // Also update root element with a custom property for the hero section
+        const heroSection = document.querySelector(".hero-section");
+        if (heroSection) {
+          heroSection.style.marginTop = `${headerHeight}px`;
+        }
+      }
+    };
+
+    // Call initial setup functions
     setVh();
+
+    // Wait for DOM to be fully loaded before measuring header
+    setTimeout(updateHeaderHeight, 100);
 
     // Handle resize for responsive design
     const handleResize = () => {
       setVh();
       setIsMobile(window.innerWidth <= 768);
+      updateHeaderHeight();
 
       // Refresh AOS on resize to ensure animations work correctly
       AOS.refresh();
@@ -61,9 +83,15 @@ const App = () => {
     // Add event listener for resize
     window.addEventListener("resize", handleResize);
 
+    // Also update header height when orientation changes (important for mobile)
+    window.addEventListener("orientationchange", () => {
+      setTimeout(updateHeaderHeight, 100); // Wait for orientation change to complete
+    });
+
     // Clean up
     return () => {
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", updateHeaderHeight);
     };
   }, [isMobile]);
 
