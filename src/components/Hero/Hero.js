@@ -1,5 +1,4 @@
-// src/components/Hero/Hero.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Typography, Button, Row, Col } from "antd";
 import { Link } from "react-scroll";
 import { motion } from "framer-motion";
@@ -7,6 +6,66 @@ import { RocketOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import "./Hero.css";
 
 const { Title, Paragraph } = Typography;
+
+// Simple game component: BouncingBallGame
+const BouncingBallGame = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let animationFrameId;
+    let ball = {
+      x: canvas.width / 2,
+      y: canvas.height / 2,
+      radius: 15,
+      dx: 2,
+      dy: 2,
+    };
+
+    const render = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Draw the ball
+      ctx.beginPath();
+      ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2, false);
+      ctx.fillStyle = "#42a5f5";
+      ctx.fill();
+      ctx.closePath();
+
+      // Update ball position
+      ball.x += ball.dx;
+      ball.y += ball.dy;
+
+      // Bounce off walls
+      if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+        ball.dx = -ball.dx;
+      }
+      if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
+        ball.dy = -ball.dy;
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    const resizeCanvas = () => {
+      canvas.width = canvas.parentElement.offsetWidth;
+      canvas.height = canvas.parentElement.offsetHeight;
+      // Center the ball after resize
+      ball.x = canvas.width / 2;
+      ball.y = canvas.height / 2;
+    };
+
+    resizeCanvas();
+    render();
+    window.addEventListener("resize", resizeCanvas);
+    return () => {
+      window.removeEventListener("resize", resizeCanvas);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="game-canvas" />;
+};
 
 const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -27,7 +86,7 @@ const Hero = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Animation variants
+  // Animation variants for framer-motion
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -61,9 +120,7 @@ const Hero = () => {
           <div className="hero-circle circle-2"></div>
           <div className="hero-circle circle-3"></div>
         </div>
-
         <div className="hero-grid"></div>
-
         {/* Animated particles for visual interest */}
         <div className="hero-particles">
           {[...Array(isMobile ? 8 : 15)].map((_, index) => (
@@ -95,14 +152,12 @@ const Hero = () => {
               <motion.div variants={itemVariants} className="hero-badge">
                 <span>Web Development Solutions</span>
               </motion.div>
-
               <motion.div variants={itemVariants}>
                 <Title className="hero-title">
                   Transform Your <span className="highlight">Digital</span>{" "}
                   Presence
                 </Title>
               </motion.div>
-
               <motion.div variants={itemVariants}>
                 <Paragraph className="hero-description">
                   We build exceptional web experiences that combine stunning
@@ -110,7 +165,6 @@ const Hero = () => {
                   stand out in the digital landscape.
                 </Paragraph>
               </motion.div>
-
               <motion.div className="hero-buttons" variants={itemVariants}>
                 <Button
                   type="primary"
@@ -127,7 +181,6 @@ const Hero = () => {
                     Start Your Project
                   </Link>
                 </Button>
-
                 <Button
                   className="hero-button secondary"
                   icon={<ArrowRightOutlined />}
@@ -143,7 +196,6 @@ const Hero = () => {
                   </Link>
                 </Button>
               </motion.div>
-
               {/* Tech tags */}
               <motion.div className="hero-tech-tags" variants={itemVariants}>
                 <div className="tech-tag">React</div>
@@ -157,82 +209,159 @@ const Hero = () => {
 
           <Col xs={24} md={12} className="hero-image-col">
             <motion.div
-              className="hero-image-wrapper"
+              className="hero-game-code-wrapper"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              <div className="hero-image-container">
-                <div className="hero-image-screen">
-                  <div className="hero-code-container">
-                    {/* UI elements: Code window mockup */}
-                    <div className="code-header">
-                      <div className="code-buttons">
-                        <span className="code-button"></span>
-                        <span className="code-button"></span>
-                        <span className="code-button"></span>
-                      </div>
-                      <div className="code-title">index.js</div>
-                    </div>
-                    <div className="code-editor">
-                      <div className="code-line">
-                        <span className="code-keyword">import</span> React{" "}
-                        <span className="code-keyword">from</span>{" "}
-                        <span className="code-string">'react'</span>;
-                      </div>
-                      <div className="code-line">
-                        <span className="code-keyword">import</span>{" "}
-                        <span className="code-string">'./App.css'</span>;
-                      </div>
-                      <div className="code-line"></div>
-                      <div className="code-line">
-                        <span className="code-keyword">function</span>{" "}
-                        <span className="code-function">App</span>() {`{`}
-                      </div>
-                      <div className="code-line">
-                        {" "}
-                        <span className="code-keyword">return</span> (
-                      </div>
-                      <div className="code-line">
-                        {" "}
-                        <span className="code-tag">{`<div className="app">`}</span>
-                      </div>
-                      <div className="code-line">
-                        {" "}
-                        <span className="code-tag">{`<header>`}</span>
-                      </div>
-                      <div className="code-line">
-                        {" "}
-                        <span className="code-tag">{`<h1>`}</span>Welcome
-                        <span className="code-tag">{`</h1>`}</span>
-                      </div>
-                      <div className="code-line">
-                        {" "}
-                        <span className="code-tag">{`</header>`}</span>
-                      </div>
-                      <div className="code-line">
-                        {" "}
-                        <span className="code-tag">{`</div>`}</span>
-                      </div>
-                      <div className="code-line"> );</div>
-                      <div className="code-line">{`}`}</div>
-                      <div className="code-line"></div>
-                      <div className="code-line">
-                        <span className="code-keyword">export default</span>{" "}
-                        App;
-                      </div>
-                    </div>
+              {/* Code snippet container */}
+              <div className="hero-code-container">
+                <div className="code-header">
+                  <div className="code-buttons">
+                    <span className="code-button"></span>
+                    <span className="code-button"></span>
+                    <span className="code-button"></span>
+                  </div>
+                  <div className="code-title">BouncingBallGame.js</div>
+                </div>
+                <div className="code-editor">
+                  <div className="code-line">
+                    <span className="code-keyword">import</span> React, {"{"}{" "}
+                    useRef, useEffect {"}"}{" "}
+                    <span className="code-keyword">from</span>{" "}
+                    <span className="code-string">'react'</span>;
+                  </div>
+                  <div className="code-line">
+                    <span className="code-keyword">const</span> BouncingBallGame{" "}
+                    <span className="code-operator">=</span> (){" "}
+                    <span className="code-operator">=&gt;</span> {"{"}
+                  </div>
+                  <div className="code-line indent">
+                    <span className="code-keyword">const</span> canvasRef{" "}
+                    <span className="code-operator">=</span>{" "}
+                    <span className="code-function">useRef</span>(null);
+                  </div>
+                  <div className="code-line indent">
+                    <span className="code-keyword">useEffect</span>((){" "}
+                    <span className="code-operator">=&gt;</span> {"{"}
+                  </div>
+                  <div className="code-line indent double">
+                    <span className="code-comment">
+                      // Initialize canvas and ball
+                    </span>
+                  </div>
+                  <div className="code-line indent double">
+                    <span className="code-keyword">const</span> canvas{" "}
+                    <span className="code-operator">=</span> canvasRef.current;
+                  </div>
+                  <div className="code-line indent double">
+                    <span className="code-keyword">const</span> ctx{" "}
+                    <span className="code-operator">=</span> canvas.getContext(
+                    <span className="code-string">'2d'</span>);
+                  </div>
+                  <div className="code-line indent double">
+                    <span className="code-keyword">let</span> ball = {"{"} x:
+                    canvas.width / 2, y: canvas.height / 2, radius: 15, dx: 2,
+                    dy: 2 {"}"};
+                  </div>
+                  <div className="code-line indent double">
+                    <span className="code-keyword">let</span> animationFrameId;
+                  </div>
+                  <div className="code-line indent double">
+                    <span className="code-keyword">const</span> render = (){" "}
+                    <span className="code-operator">=&gt;</span> {"{"}
+                  </div>
+                  <div className="code-line indent triple">
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                  </div>
+                  <div className="code-line indent triple">
+                    ctx.beginPath();
+                  </div>
+                  <div className="code-line indent triple">
+                    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+                  </div>
+                  <div className="code-line indent triple">
+                    ctx.fillStyle ={" "}
+                    <span className="code-string">'#42a5f5'</span>;
+                  </div>
+                  <div className="code-line indent triple">ctx.fill();</div>
+                  <div className="code-line indent triple">
+                    ctx.closePath();
+                  </div>
+                  <div className="code-line indent triple">
+                    ball.x += ball.dx; ball.y += ball.dy;
+                  </div>
+                  <div className="code-line indent triple">
+                    <span className="code-comment">// Bounce off walls</span>
+                  </div>
+                  <div className="code-line indent triple">
+                    <span className="code-keyword">if</span> (ball.x +
+                    ball.radius > canvas.width || ball.x - ball.radius {"<"} 0)
+                    ball.dx = -ball.dx;
+                  </div>
+                  <div className="code-line indent triple">
+                    <span className="code-keyword">if</span> (ball.y +
+                    ball.radius > canvas.height || ball.y - ball.radius {"<"} 0)
+                    ball.dy = -ball.dy;
+                  </div>
+                  <div className="code-line indent triple">
+                    animationFrameId = requestAnimationFrame(render);
+                  </div>
+                  <div className="code-line indent double">{"}"};</div>
+                  <div className="code-line indent double">
+                    <span className="code-comment">
+                      // Handle canvas resize
+                    </span>
+                  </div>
+                  <div className="code-line indent double">
+                    <span className="code-keyword">const</span> resizeCanvas =
+                    () <span className="code-operator">=&gt;</span> {"{"}
+                  </div>
+                  <div className="code-line indent triple">
+                    canvas.width = canvas.parentElement.offsetWidth;
+                  </div>
+                  <div className="code-line indent triple">
+                    canvas.height = canvas.parentElement.offsetHeight;
+                  </div>
+                  <div className="code-line indent triple">
+                    ball.x = canvas.width / 2; ball.y = canvas.height / 2;
+                  </div>
+                  <div className="code-line indent double">{"}"};</div>
+                  <div className="code-line indent double">resizeCanvas();</div>
+                  <div className="code-line indent double">render();</div>
+                  <div className="code-line indent double">
+                    window.addEventListener(
+                    <span className="code-string">'resize'</span>,
+                    resizeCanvas);
+                  </div>
+                  <div className="code-line indent">
+                    <span className="code-keyword">return</span> (){" "}
+                    <span className="code-operator">=&gt;</span> {"{"}
+                  </div>
+                  <div className="code-line indent triple">
+                    window.removeEventListener(
+                    <span className="code-string">'resize'</span>,
+                    resizeCanvas);
+                  </div>
+                  <div className="code-line indent triple">
+                    cancelAnimationFrame(animationFrameId);
+                  </div>
+                  <div className="code-line indent">{"}"};</div>
+                  <div className="code-line">
+                    <span className="code-keyword">return</span> &lt;canvas
+                    ref=&#123;canvasRef&#125; className="game-canvas" /&gt;;
+                  </div>
+                  <div className="code-line">};</div>
+                  <div className="code-line"></div>
+                  <div className="code-line">
+                    <span className="code-keyword">export default</span>{" "}
+                    BouncingBallGame;
                   </div>
                 </div>
-
-                <div className="devices">
-                  <div className="device tablet">
-                    <div className="device-screen"></div>
-                  </div>
-                  <div className="device phone">
-                    <div className="device-screen"></div>
-                  </div>
-                </div>
+              </div>
+              {/* Interactive game container */}
+              <div className="hero-game-container">
+                <BouncingBallGame />
               </div>
             </motion.div>
           </Col>
