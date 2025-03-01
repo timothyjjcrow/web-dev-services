@@ -15,7 +15,11 @@ import Services from "./components/Services/Services";
 import About from "./components/About/About";
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+// Import the new FlatEarth component
+>>>>>>> Stashed changes
 =======
 // Import the new FlatEarth component
 >>>>>>> Stashed changes
@@ -89,8 +93,11 @@ const App = () => {
         <Services />
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         <InnovativeApproach />
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 

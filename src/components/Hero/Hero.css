@@ -637,6 +637,7 @@
 }
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 /* Additional mobile optimizations for Hero section */
 @media (max-width: 768px) {
   .hero-section {
@@ -648,6 +649,8 @@
   .hero-container {
     padding: 30px 15px;
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 /* Mobile-first hero section fixes */
@@ -689,6 +692,9 @@
     padding: 20px 0;
     margin: 0 auto;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -699,6 +705,10 @@
     line-height: 1.3 !important;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+    margin-bottom: 16px !important;
+>>>>>>> Stashed changes
 =======
     margin-bottom: 16px !important;
 >>>>>>> Stashed changes
@@ -710,6 +720,7 @@
   .hero-description {
     font-size: 1rem !important;
     line-height: 1.6 !important;
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
     max-width: 100% !important; /* Better text wrapping on mobile */
@@ -754,6 +765,8 @@
   .particle {
     display: none; /* Hide most particles */
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     margin-bottom: 24px !important;
@@ -807,6 +820,9 @@
   .particle {
     display: none; /* Hide particles for better performance */
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -816,6 +832,7 @@
     display: block; /* Show only every third particle */
   }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
   /* Improve device illustrations for mobile */
@@ -847,6 +864,8 @@
 =======
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
   /* Simplify device animations for better performance */
   .laptop,
   .phone,
@@ -865,6 +884,9 @@
   .hero-title {
     font-size: 1.8rem !important;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -872,6 +894,7 @@
 
   .hero-description {
     font-size: 0.95rem !important;
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
     line-height: 1.5 !important;
@@ -885,6 +908,8 @@
 =======
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
     margin-bottom: 20px !important;
   }
 
@@ -893,6 +918,9 @@
     font-size: 12px;
     margin-bottom: 15px;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -900,6 +928,7 @@
 
   .hero-button {
     height: 45px !important;
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
     font-size: 15px !important;
@@ -953,6 +982,8 @@
 =======
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
     font-size: 14px !important;
   }
 
@@ -968,6 +999,9 @@
 
 /* Very small devices */
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -976,6 +1010,7 @@
     font-size: 1.6rem !important;
   }
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
   .hero-tag-icon {
@@ -1054,6 +1089,8 @@
 =======
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
   .tech-icon {
     width: 50px;
     height: 50px;
@@ -1073,6 +1110,9 @@
   .content-item:nth-child(3) {
     display: none; /* Simplify content for iOS */
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
