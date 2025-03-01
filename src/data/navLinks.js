@@ -7,9 +7,10 @@ import {
 export const navLinks = [
   { key: "1", to: "home", name: "Home" },
   { key: "2", to: "services", name: "Services" },
-  { key: "3", to: "about", name: "About" },
-  { key: "4", to: "testimonials", name: "Testimonials" },
-  { key: "5", to: "contact", name: "Contact" },
+  { key: "3", to: "portfolio", name: "Portfolio" }, // Add the new Portfolio nav link
+  { key: "4", to: "about", name: "About" },
+  { key: "5", to: "testimonials", name: "Testimonials" },
+  { key: "6", to: "contact", name: "Contact" },
 ];
 
 export const socialLinks = [
