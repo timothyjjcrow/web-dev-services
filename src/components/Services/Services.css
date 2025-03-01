@@ -140,15 +140,21 @@
 
 .service-tabs {
   min-height: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .service-tabs .ant-tabs-nav {
   margin: 0 !important;
   background: rgba(0, 0, 0, 0.2);
+  width: 100%;
 }
 
 .service-tabs .ant-tabs-content-holder {
   border: none !important;
+  width: 100%;
+  padding-top: 20px;
 }
 
 .service-tabs .ant-tabs-tab {
@@ -156,6 +162,7 @@
   margin: 0 !important;
   background: transparent !important;
   border: none !important;
+  width: auto;
 }
 
 .service-tab {
@@ -163,10 +170,11 @@
   align-items: center;
   padding: 15px 20px;
   border-radius: 8px;
-  margin: 10px 20px;
+  margin: 10px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.3s ease;
+  width: auto;
 }
 
 .service-tab:hover {
@@ -182,13 +190,14 @@
   );
   border-color: rgba(38, 208, 206, 0.5);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
 }
 
 .service-tab-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
+  min-width: 50px;
   height: 50px;
   border-radius: 10px;
   background: linear-gradient(
@@ -209,6 +218,7 @@
 .service-tab-text {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .service-tab-title {
@@ -216,11 +226,17 @@
   font-weight: 600 !important;
   font-size: 1rem !important;
   margin-bottom: 5px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .service-tab-desc {
   color: rgba(255, 255, 255, 0.6) !important;
   font-size: 0.8rem !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Tab content styling */
@@ -506,8 +522,8 @@
     font-size: 2.5rem !important;
   }
 
-  .service-tabs {
-    flex-direction: column;
+  .service-tabs .ant-tabs-nav {
+    min-width: 200px;
   }
 
   .service-tab {
@@ -543,11 +559,6 @@
     margin-bottom: 50px;
   }
 
-  .service-tabs .ant-tabs-nav {
-    max-width: 100%;
-    width: 100%;
-  }
-
   .service-image-col {
     margin-top: 30px;
   }
@@ -571,6 +582,10 @@
   .deco-circle {
     width: 150px;
     height: 150px;
+  }
+
+  .service-tab {
+    padding: 10px 15px;
   }
 }
 

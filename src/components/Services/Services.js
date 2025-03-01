@@ -18,6 +18,17 @@ const { TabPane } = Tabs;
 const Services = () => {
   const [activeTab, setActiveTab] = useState("0");
   const [hoveredFeature, setHoveredFeature] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  // Effect to update mobile state
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Animation variants
   const sectionVariants = {
@@ -87,7 +98,7 @@ const Services = () => {
 
   // Generate all particles with randomized properties
   const renderParticles = () => {
-    const particleCount = 15; // Adjust based on desired density
+    const particleCount = isMobile ? 8 : 15; // Fewer particles on mobile
     const particles = [];
 
     for (let i = 0; i < particleCount; i++) {
@@ -128,10 +139,9 @@ const Services = () => {
         activeKey={activeTab}
         onChange={handleTabChange}
         className="service-tabs"
-        tabPosition="left"
+        tabPosition="top"
         tabBarStyle={{
-          width: "250px",
-          borderRight: "1px solid rgba(255, 255, 255, 0.1)",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
         }}
       >
         {services.map((service, index) => (
@@ -142,9 +152,9 @@ const Services = () => {
                 initial={{ opacity: 0.7 }}
                 animate={{
                   opacity: activeTab === index.toString() ? 1 : 0.7,
-                  x: activeTab === index.toString() ? 10 : 0,
+                  y: activeTab === index.toString() ? -5 : 0,
                 }}
-                whileHover={{ opacity: 1, x: 5 }}
+                whileHover={{ opacity: 1, y: -3 }}
                 transition={{ duration: 0.3 }}
               >
                 <div className="service-tab-icon">
